@@ -4,6 +4,7 @@ import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import { Route, Routes } from 'react-router-dom';
 import { getAllNotes } from './utils/local-data';
+import NoteDetailPage from './pages/NoteDetailPage';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -38,6 +39,9 @@ const App = () => {
           <Routes>
             <Route path="/" element={
               <HomePage notes={notes}/>
+            } />
+            <Route path='/notes/:id' element={
+              <NoteDetailPage />
             } />
           </Routes>
         </main>
