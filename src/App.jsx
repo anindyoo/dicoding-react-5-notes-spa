@@ -7,6 +7,9 @@ import { getAllNotes } from './utils/local-data';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   useEffect(() => {
     const notes = getAllNotes();
@@ -20,16 +23,14 @@ const App = () => {
     flex flex-col
     h-screen overflow-hidden"
     >
-      <Header />
-      <div className="
-      flex flex-row gap-1"
-      >
-        <Sidebar />
+      <Header toggleSidebar={toggleSidebar} />
+      <div className="flex flex-row">
+        <Sidebar isSidebarOpen={isSidebarOpen} />
         <main className="
         notes-spa__main
         flex
         w-full h-screen
-        px-5 py-4
+        pl-5 pr-20 py-4
         rounded-tl-3xl
         overflow-y-scroll
         shadow-inner

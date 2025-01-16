@@ -16,7 +16,7 @@ const HomePage = ({ notes }) => {
       </h2>
       <ul className="
       home-page__notes-list
-      grid grid-cols-3 gap-5"
+      grid grid-cols-4 gap-5"
       >
         {notes.map((note) => (
           <li
