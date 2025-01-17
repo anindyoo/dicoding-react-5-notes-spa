@@ -4,15 +4,16 @@ import { getNote } from '../utils/local-data';
 import NoteDetail from '../components/NoteDetail/NoteDetail';
 import NotFoundPage from './NotFoundPage';
 import NoteWrapper from '../components/NoteWrapper/NoteWrapper';
+import PropTypes from 'prop-types';
 
-const NoteDetailPage = () => {
+const NoteDetailPage = ({ notes }) => {
   const { id } = useParams();
   const [note, setNote] = useState({});
 
   useEffect(() => {
-    const note = getNote(id);
+    const note = getNote(id, notes);
     setNote(note);
-  }, [id]);
+  }, [id, notes]);
 
   return note
     ? (
@@ -23,6 +24,10 @@ const NoteDetailPage = () => {
       </section>
     )
   : <NotFoundPage category={'detail'} noteId={id} />;
+};
+
+NoteDetailPage.propTypes = {
+  notes: PropTypes.array.isRequired,
 };
 
 export default NoteDetailPage;

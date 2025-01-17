@@ -60,7 +60,7 @@ const App = () => {
             />
             <Route
               path='/notes/:id'
-              element={<NoteDetailPage />}
+              element={<NoteDetailPage notes={notes} />}
             />
             <Route
               path='/add'

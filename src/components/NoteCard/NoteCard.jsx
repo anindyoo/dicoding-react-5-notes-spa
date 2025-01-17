@@ -25,20 +25,22 @@ const NoteCard = ({
         <div className="flex flex-col">
           <h3 className="
           note-card__title
-          text-lg font-medium">
+          text-lg font-medium
+          line-clamp-1"
+          >
             {parse(title)}
           </h3>
           <p className="text-sm opacity-60">
             {showFormattedDate(createdAt)}
           </p>
         </div>
-        <p className="
+        <div className="
         note-card__body
         text-base font-light
         line-clamp-4"
         >
           {parse(body)}
-        </p>
+        </div>
       </div>
       <NoteCardButtons id={id} />
     </div>
