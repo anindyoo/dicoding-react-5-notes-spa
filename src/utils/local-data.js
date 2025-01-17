@@ -47,9 +47,9 @@ function getAllNotes() {
   return notes;
 }
 
-function getNote(id) {
-  const foundedNote = notes.find((note) => note.id === id);
-  return foundedNote;
+function getNote(id, notesState) {
+  const foundNote = notesState.find((note) => note.id === id);
+  return foundNote;
 }
 
 function getActiveNotes() {

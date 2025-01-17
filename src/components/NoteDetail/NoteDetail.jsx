@@ -1,31 +1,34 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { showFormattedDate } from '../../utils';
-import NoteButtons from './NoteDetailPanel';
+import NoteDetailPanel from './NoteDetailPanel';
+import parse from 'html-react-parser';
 
 const NoteDetail = ({ note }) => {
-  return (
-    <div className="note-detail">
-      <div className="note-detail__header">
-        <h2 className="
-        note-detail__title
-        text-xl font-medium"
-        >
-          {note?.title}
-        </h2>
-        <p className="
-        note-detail__date
-        text-base opacity-60"
-        >
-          {showFormattedDate(note?.createdAt)}
-        </p>
+  return note.title
+    ? (
+      <div className="note-detail">
+        <div className="note-detail__header">
+          <h2 className="
+          note-detail__title
+          text-xl font-medium"
+          >
+            {parse(note.title)}
+          </h2>
+          <p className="
+          note-detail__date
+          text-base opacity-60"
+          >
+            {showFormattedDate(note?.createdAt)}
+          </p>
+        </div>
+        <NoteDetailPanel />
+        <div className="note-detail_body font-light">
+          {parse(note.body)}
+        </div>
       </div>
-      <NoteButtons />
-      <p className="note-detail_body font-light">
-        {note.body}
-      </p>
-    </div>
-  );
+    )
+  : ('Loading...');
 };
 
 NoteDetail.propTypes = {
