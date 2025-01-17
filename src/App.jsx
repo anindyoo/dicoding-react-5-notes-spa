@@ -4,6 +4,8 @@ import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import { Route, Routes } from 'react-router-dom';
 import { getAllNotes } from './utils/local-data';
+import NoteDetailPage from './pages/NoteDetailPage';
+import NotFoundPage from './pages/NotFoundPage';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -36,9 +38,18 @@ const App = () => {
         shadow-inner
         bg-background">
           <Routes>
-            <Route path="/" element={
-              <HomePage notes={notes}/>
-            } />
+            <Route
+              path="/"
+              element={<HomePage notes={notes}/>}
+            />
+            <Route
+              path='/notes/:id'
+              element={<NoteDetailPage />}
+            />
+            <Route
+              path='*'
+              element={<NotFoundPage />}
+            />
           </Routes>
         </main>
       </div>

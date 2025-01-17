@@ -1,7 +1,8 @@
-import { ArchiveBoxArrowDownIcon, EyeIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { EyeIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import NoteActionButton from '../NoteActionButton/NoteActionButton';
 
 const NoteCardButtons = ({ id }) => {
   return (
@@ -10,7 +11,7 @@ const NoteCardButtons = ({ id }) => {
     flex flex-row items-center gap-5"
     >
       <Link
-        to={`/${id}`}
+        to={`/notes/${id}`}
         className="
         note-card-buttons__read-more
         flex flex-1 justify-center items-center gap-1
@@ -25,32 +26,14 @@ const NoteCardButtons = ({ id }) => {
         </span>
         <span>Read more</span>
       </Link>
-      <button
-        className="
-        note-card-buttons__archive
-        flex flex-none justify-center items-center
-        w-8 h-8
-        rounded-full
-        transition-all duration-200 ease-in-out
-        hover:bg-accentColor hover:bg-opacity-40"
-        type="button"
-        title="Archive note."
+      <div className="
+      flex flex-row gap-2
+      pl-4
+      border-l border-accentColor border-opacity-50"
       >
-        <ArchiveBoxArrowDownIcon className="w-6" />
-      </button>
-      <button
-        className="
-        note-card-buttons__delete
-        flex flex-none justify-center items-center
-        w-8 h-8
-        rounded-full
-        transition-all duration-200 ease-in-out
-        hover:bg-accentColor hover:bg-opacity-40"
-        type="button"
-        title="Archive note."
-      >
-        <TrashIcon className="w-6" />
-      </button>
+        <NoteActionButton action="archive" />
+        <NoteActionButton action="delete" />
+      </div>
     </div>
   );
 };
