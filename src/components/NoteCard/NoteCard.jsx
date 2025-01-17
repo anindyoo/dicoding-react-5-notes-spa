@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { showFormattedDate } from '../../utils';
 import NoteCardButtons from './NoteCardButtons';
+import parse from 'html-react-parser';
 
 const NoteCard = ({
   id,
@@ -25,7 +26,7 @@ const NoteCard = ({
           <h3 className="
           note-card__title
           text-lg font-medium">
-            {title}
+            {parse(title)}
           </h3>
           <p className="text-sm opacity-60">
             {showFormattedDate(createdAt)}
@@ -36,7 +37,7 @@ const NoteCard = ({
         text-base font-light
         line-clamp-4"
         >
-          {body}
+          {parse(body)}
         </p>
       </div>
       <NoteCardButtons id={id} />

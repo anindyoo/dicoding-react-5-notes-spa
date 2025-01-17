@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { getNote } from '../utils/local-data';
 import NoteDetail from '../components/NoteDetail/NoteDetail';
 import NotFoundPage from './NotFoundPage';
+import NoteWrapper from '../components/NoteWrapper/NoteWrapper';
 
 const NoteDetailPage = () => {
   const { id } = useParams();
@@ -15,15 +16,10 @@ const NoteDetailPage = () => {
 
   return note
     ? (
-      <section className="
-      note-detail-page
-      flex flex-col mx-auto
-      w-[40%] h-max
-      rounded-2xl
-      px-6 py-8
-      shadow-md
-      bg-white bg-opacity-30">
-        <NoteDetail note={note} />
+      <section className="note-detail-page">
+        <NoteWrapper>
+          <NoteDetail note={note} />
+        </NoteWrapper>
       </section>
     )
   : <NotFoundPage category={'detail'} noteId={id} />;

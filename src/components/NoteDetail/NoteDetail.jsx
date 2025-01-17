@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { showFormattedDate } from '../../utils';
-import NoteButtons from './NoteDetailPanel';
+import NoteDetailPanel from './NoteDetailPanel';
 
 const NoteDetail = ({ note }) => {
   return (
@@ -20,7 +20,7 @@ const NoteDetail = ({ note }) => {
           {showFormattedDate(note?.createdAt)}
         </p>
       </div>
-      <NoteButtons />
+      <NoteDetailPanel />
       <p className="note-detail_body font-light">
         {note.body}
       </p>
