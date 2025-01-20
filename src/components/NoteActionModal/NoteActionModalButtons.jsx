@@ -1,15 +1,22 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const NoteActionModalButtons = ({
+  pageOrigin,
   modalConfirm,
   noteModalObj,
   toggleModal,
   onDeleteNoteHandler,
 }) => {
+  const navigate = useNavigate();
+
   const selectedOnClickAction = () => {
     if (noteModalObj.action === 'delete') {
       onDeleteNoteHandler(noteModalObj.noteId);
+      if (pageOrigin === 'detail') {
+        navigate('/');
+      }
     } else {
       console.log('archiveeeee');
     }
@@ -54,6 +61,7 @@ const NoteActionModalButtons = ({
 };
 
 NoteActionModalButtons.propTypes = {
+  pageOrigin: PropTypes.string.isRequired,
   modalConfirm: PropTypes.string.isRequired,
   noteModalObj: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired,

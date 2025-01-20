@@ -40,6 +40,7 @@ const HomePage = ({
         ))}
       </ul>
       <NoteActionModal
+        pageOrigin="home"
         noteModalObj={noteModalObj}
         toggleModal={toggleModal}
         onDeleteNoteHandler={onDeleteNoteHandler}

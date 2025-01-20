@@ -11,6 +11,7 @@ import AddNotePage from './pages/AddNotePage';
 const emptyNote = {
   noteId: '',
   noteTitle: '',
+  pageOrigin: '',
   action:'',
   isOpen: false,
 };
@@ -93,6 +94,7 @@ const App = () => {
                   notes={notes}
                   noteModalObj={noteModalObj}
                   toggleModal={toggleModal}
+                  onDeleteNoteHandler={onDeleteNoteHandler}
                 />
               }
             />
