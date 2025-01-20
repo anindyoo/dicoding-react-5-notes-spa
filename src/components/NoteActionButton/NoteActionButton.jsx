@@ -1,4 +1,4 @@
-import { ArchiveBoxArrowDownIcon, TrashIcon } from '@heroicons/react/24/outline';
+import { ArchiveBoxArrowDownIcon, ArchiveBoxXMarkIcon, TrashIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
 import React from 'react';
 
@@ -12,6 +12,11 @@ const actionsData = [
     id: 'archive',
     title: 'Archive button',
     icon: <ArchiveBoxArrowDownIcon title="Archive note." />,
+  },
+  {
+    id: 'unarchive',
+    title: 'Unarchive button',
+    icon: <ArchiveBoxXMarkIcon title="Unrchive note." />,
   },
 ];
 
@@ -38,6 +43,7 @@ const NoteActionButton = ({
         noteId,
         noteTitle,
         action: selectedAction.id,
+        isArchivedNote: action === 'unarchive',
         isOpen: true,
       })}
     >

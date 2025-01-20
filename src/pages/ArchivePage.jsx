@@ -1,36 +1,36 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { getArchivedNotes } from '../utils/local-data';
 import NoteCard from '../components/NoteCard/NoteCard';
 import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
-import { getActiveNotes } from '../utils/local-data';
 
-const HomePage = ({
+const ArchivePage = ({
   notes,
   noteModalObj,
   toggleModal,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
 }) => {
-  const activeNotes = getActiveNotes(notes);
+  const archivedNotes = getArchivedNotes(notes);
 
   return (
     <section className="
-    home-page
+    archive-page
     flex flex-col gap-5
     w-screen"
     >
       <h2 className="
-      home-page__title
+      archive-page__title
       text-2xl font-bold text-primaryColor"
       >
-        Notes
+        Archived Notes
       </h2>
       <ul className="
       home-page__notes-list
       grid grid-cols-4 gap-5"
       >
-        {activeNotes.length > 0
-          ? activeNotes?.map((note) => (
+        {archivedNotes.length > 0
+          ? archivedNotes?.map((note) => (
             <li
               key={note.id}
               className="home-page__notes-list__list-item"
@@ -45,7 +45,8 @@ const HomePage = ({
               />
             </li>
           ))
-          : <div>empty</div>}
+          : <div>empty</div>
+        }
       </ul>
       <NoteActionModal
         pageOrigin="home"
@@ -58,7 +59,7 @@ const HomePage = ({
   );
 };
 
-HomePage.propTypes = {
+ArchivePage.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   noteModalObj: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired,
@@ -66,4 +67,4 @@ HomePage.propTypes = {
   onArchiveNoteHandler: PropTypes.func.isRequired,
 };
 
-export default HomePage;
+export default ArchivePage;

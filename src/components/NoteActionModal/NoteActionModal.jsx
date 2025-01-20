@@ -16,6 +16,12 @@ const modalTypesData = [
     body: (noteTitle) => `Proceed to archive note: "${noteTitle}"?`,
     confirm: 'Archive Note',
   },
+  {
+    id: 'unarchive',
+    title: 'Unarchive Note',
+    body: (noteTitle) => `Proceed to unarchive note: "${noteTitle}"?`,
+    confirm: 'Unarchive Note',
+  },
 ];
 
 const NoteActionModal = ({
@@ -23,6 +29,7 @@ const NoteActionModal = ({
   noteModalObj,
   toggleModal,
   onDeleteNoteHandler,
+  onArchiveNoteHandler,
 }) => {
   const selectedModalType = modalTypesData.find((type) => type.id === noteModalObj.action);
 
@@ -58,6 +65,7 @@ const NoteActionModal = ({
           noteModalObj={noteModalObj}
           toggleModal={toggleModal}
           onDeleteNoteHandler={onDeleteNoteHandler}
+          onArchiveNoteHandler={onArchiveNoteHandler}
         />
       </div>
       <button
@@ -80,6 +88,7 @@ NoteActionModal.propTypes = {
   noteModalObj: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
+  onArchiveNoteHandler: PropTypes.func.isRequired,
 };
 
 export default NoteActionModal;

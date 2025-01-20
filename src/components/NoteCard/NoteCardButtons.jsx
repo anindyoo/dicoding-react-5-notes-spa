@@ -4,7 +4,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import NoteActionButton from '../NoteActionButton/NoteActionButton';
 
-const NoteCardButtons = ({ id, noteTitle, toggleModal }) => {
+const NoteCardButtons = ({
+  id,
+  noteTitle,
+  archived,
+  toggleModal,
+}) => {
   return (
     <div className="
     note-card-buttons
@@ -34,7 +39,7 @@ const NoteCardButtons = ({ id, noteTitle, toggleModal }) => {
         <NoteActionButton
           noteId={id}
           noteTitle={noteTitle}
-          action="archive"
+          action={archived ? 'unarchive' : 'archive'}
           toggleModal={toggleModal}
         />
         <NoteActionButton
@@ -51,6 +56,7 @@ const NoteCardButtons = ({ id, noteTitle, toggleModal }) => {
 NoteCardButtons.propTypes = {
   id: PropTypes.string.isRequired,
   noteTitle: PropTypes.string.isRequired,
+  archived: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
 };
 

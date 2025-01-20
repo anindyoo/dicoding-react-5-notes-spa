@@ -52,13 +52,13 @@ function getNote(id, notesState) {
   return foundNote;
 }
 
-function getActiveNotes() {
-  const activeNotes = notes.filter((note) => !note.archived);
+function getActiveNotes(notesState) {
+  const activeNotes = notesState.filter((note) => !note.archived);
   return activeNotes;
 }
 
-function getArchivedNotes() {
-  const archivedNotes = notes.filter((note) => note.archived);
+function getArchivedNotes(notesState) {
+  const archivedNotes = notesState.filter((note) => note.archived);
   return archivedNotes;
 }
 

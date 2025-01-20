@@ -25,6 +25,7 @@ const NoteDetail = ({ note, toggleModal }) => {
         <NoteDetailPanel
           noteId={note.id}
           noteTitle={note.title}
+          archived={note.archived}
           toggleModal={toggleModal}
         />
         <div className="note-detail_body font-light">

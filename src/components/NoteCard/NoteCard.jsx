@@ -9,6 +9,7 @@ const NoteCard = ({
   title,
   body,
   createdAt,
+  archived,
   toggleModal,
 }) => {
   return (
@@ -46,6 +47,7 @@ const NoteCard = ({
       <NoteCardButtons
         id={id}
         noteTitle={title}
+        archived={archived}
         toggleModal={toggleModal}
       />
     </div>
@@ -57,6 +59,7 @@ NoteCard.propTypes = {
   title: PropTypes.string.isRequired,
   body: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
+  archived: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
 };
 

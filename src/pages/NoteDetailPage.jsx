@@ -12,6 +12,7 @@ const NoteDetailPage = ({
   noteModalObj,
   toggleModal,
   onDeleteNoteHandler,
+  onArchiveNoteHandler,
 }) => {
   const { id } = useParams();
   const [note, setNote] = useState({});
@@ -35,6 +36,7 @@ const NoteDetailPage = ({
           noteModalObj={noteModalObj}
           toggleModal={toggleModal}
           onDeleteNoteHandler={onDeleteNoteHandler}
+          onArchiveNoteHandler={onArchiveNoteHandler}
         />
       </section>
     )
@@ -46,6 +48,7 @@ NoteDetailPage.propTypes = {
   noteModalObj: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
+  onArchiveNoteHandler: PropTypes.func.isRequired,
 };
 
 export default NoteDetailPage;

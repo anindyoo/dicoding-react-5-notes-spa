@@ -7,11 +7,13 @@ import { getAllNotes } from './utils/local-data';
 import NoteDetailPage from './pages/NoteDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AddNotePage from './pages/AddNotePage';
+import ArchivePage from './pages/ArchivePage';
 
 const emptyNote = {
   noteId: '',
   noteTitle: '',
   pageOrigin: '',
+  isArchivedNote: false,
   action:'',
   isOpen: false,
 };
@@ -41,6 +43,15 @@ const App = () => {
   const onDeleteNoteHandler = (id) => {
     const filteredNotes = notes.filter((note) => note.id !== id);
     setNotes(filteredNotes);
+    setNoteModalObj(emptyNote);
+  };
+
+  const onArchiveNoteHandler = (id) => {
+    const updatedNotes = notes.map((note) => note.id === id
+      ? { ...note, archived: !note.archived }
+      : note,
+    );
+    setNotes(updatedNotes);
     setNoteModalObj(emptyNote);
   };
 
@@ -84,6 +95,7 @@ const App = () => {
                   noteModalObj={noteModalObj}
                   toggleModal={toggleModal}
                   onDeleteNoteHandler={onDeleteNoteHandler}
+                  onArchiveNoteHandler={onArchiveNoteHandler}
                 />
               }
             />
@@ -95,12 +107,25 @@ const App = () => {
                   noteModalObj={noteModalObj}
                   toggleModal={toggleModal}
                   onDeleteNoteHandler={onDeleteNoteHandler}
+                  onArchiveNoteHandler={onArchiveNoteHandler}
                 />
               }
             />
             <Route
               path='/add'
               element={<AddNotePage onAddNoteHandler={onAddNoteHandler} />}
+            />
+            <Route
+              path='/archive'
+              element={
+                <ArchivePage
+                  notes={notes}
+                  noteModalObj={noteModalObj}
+                  toggleModal={toggleModal}
+                  onDeleteNoteHandler={onDeleteNoteHandler}
+                  onArchiveNoteHandler={onArchiveNoteHandler}
+                />
+              }
             />
             <Route
               path='*'

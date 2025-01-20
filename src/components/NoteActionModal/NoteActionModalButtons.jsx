@@ -8,6 +8,7 @@ const NoteActionModalButtons = ({
   noteModalObj,
   toggleModal,
   onDeleteNoteHandler,
+  onArchiveNoteHandler,
 }) => {
   const navigate = useNavigate();
 
@@ -18,8 +19,9 @@ const NoteActionModalButtons = ({
         navigate('/');
       }
     } else {
-      console.log('archiveeeee');
+      onArchiveNoteHandler(noteModalObj.noteId);
     }
+
   };
 
   return (
@@ -66,6 +68,7 @@ NoteActionModalButtons.propTypes = {
   noteModalObj: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
+  onArchiveNoteHandler: PropTypes.func.isRequired,
 };
 
 export default NoteActionModalButtons;
