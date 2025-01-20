@@ -4,7 +4,7 @@ import { showFormattedDate } from '../../utils';
 import NoteDetailPanel from './NoteDetailPanel';
 import parse from 'html-react-parser';
 
-const NoteDetail = ({ note }) => {
+const NoteDetail = ({ note, toggleModal }) => {
   return note.title
     ? (
       <div className="note-detail">
@@ -22,7 +22,11 @@ const NoteDetail = ({ note }) => {
             {showFormattedDate(note?.createdAt)}
           </p>
         </div>
-        <NoteDetailPanel />
+        <NoteDetailPanel
+          noteId={note.id}
+          noteTitle={note.title}
+          toggleModal={toggleModal}
+        />
         <div className="note-detail_body font-light">
           {parse(note.body)}
         </div>
@@ -33,6 +37,7 @@ const NoteDetail = ({ note }) => {
 
 NoteDetail.propTypes = {
   note: PropTypes.object.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
 
 export default NoteDetail;

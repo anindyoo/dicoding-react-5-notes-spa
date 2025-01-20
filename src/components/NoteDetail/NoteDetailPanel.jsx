@@ -1,8 +1,13 @@
 import React from 'react';
 import NoteActionButton from '../NoteActionButton/NoteActionButton';
 import { BoltIcon } from '@heroicons/react/24/outline';
+import PropTypes from 'prop-types';
 
-const NoteDetailPanel = () => {
+const NoteDetailPanel = ({
+  toggleModal,
+  noteId,
+  noteTitle,
+}) => {
   return (
     <div className="
     note-detail-panel
@@ -23,11 +28,27 @@ const NoteDetailPanel = () => {
       note-detail-panel__buttons
       flex flex-row justify-end gap-2 text-accentColor"
       >
-        <NoteActionButton action="archive" />
-        <NoteActionButton action="delete" />
+        <NoteActionButton
+          action="archive"
+          noteId={noteId}
+          noteTitle={noteTitle}
+          toggleModal={toggleModal}
+        />
+        <NoteActionButton
+          action="delete"
+          noteId={noteId}
+          noteTitle={noteTitle}
+          toggleModal={toggleModal}
+        />
       </div>
     </div>
   );
+};
+
+NoteDetailPanel.propTypes = {
+  noteId: PropTypes.string.isRequired,
+  noteTitle: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
 
 export default NoteDetailPanel;

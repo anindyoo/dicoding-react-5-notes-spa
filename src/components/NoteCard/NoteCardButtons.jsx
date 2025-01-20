@@ -4,7 +4,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import NoteActionButton from '../NoteActionButton/NoteActionButton';
 
-const NoteCardButtons = ({ id }) => {
+const NoteCardButtons = ({ id, noteTitle, toggleModal }) => {
   return (
     <div className="
     note-card-buttons
@@ -31,8 +31,18 @@ const NoteCardButtons = ({ id }) => {
       pl-4
       border-l border-accentColor border-opacity-50"
       >
-        <NoteActionButton action="archive" />
-        <NoteActionButton action="delete" />
+        <NoteActionButton
+          noteId={id}
+          noteTitle={noteTitle}
+          action="archive"
+          toggleModal={toggleModal}
+        />
+        <NoteActionButton
+          noteId={id}
+          noteTitle={noteTitle}
+          action="delete"
+          toggleModal={toggleModal}
+        />
       </div>
     </div>
   );
@@ -40,6 +50,8 @@ const NoteCardButtons = ({ id }) => {
 
 NoteCardButtons.propTypes = {
   id: PropTypes.string.isRequired,
+  noteTitle: PropTypes.string.isRequired,
+  toggleModal: PropTypes.func.isRequired,
 };
 
 export default NoteCardButtons;

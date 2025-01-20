@@ -5,8 +5,14 @@ import NoteDetail from '../components/NoteDetail/NoteDetail';
 import NotFoundPage from './NotFoundPage';
 import NoteWrapper from '../components/NoteWrapper/NoteWrapper';
 import PropTypes from 'prop-types';
+import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
 
-const NoteDetailPage = ({ notes }) => {
+const NoteDetailPage = ({
+  notes,
+  noteModalObj,
+  toggleModal,
+  onDeleteNoteHandler,
+}) => {
   const { id } = useParams();
   const [note, setNote] = useState({});
 
@@ -19,8 +25,17 @@ const NoteDetailPage = ({ notes }) => {
     ? (
       <section className="note-detail-page">
         <NoteWrapper>
-          <NoteDetail note={note} />
+          <NoteDetail
+            note={note}
+            toggleModal={toggleModal}
+          />
         </NoteWrapper>
+        <NoteActionModal
+          pageOrigin="detail"
+          noteModalObj={noteModalObj}
+          toggleModal={toggleModal}
+          onDeleteNoteHandler={onDeleteNoteHandler}
+        />
       </section>
     )
   : <NotFoundPage category={'detail'} noteId={id} />;
@@ -28,6 +43,9 @@ const NoteDetailPage = ({ notes }) => {
 
 NoteDetailPage.propTypes = {
   notes: PropTypes.array.isRequired,
+  noteModalObj: PropTypes.object.isRequired,
+  toggleModal: PropTypes.func.isRequired,
+  onDeleteNoteHandler: PropTypes.func.isRequired,
 };
 
 export default NoteDetailPage;
