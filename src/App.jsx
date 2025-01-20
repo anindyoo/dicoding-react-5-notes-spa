@@ -8,9 +8,17 @@ import NoteDetailPage from './pages/NoteDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AddNotePage from './pages/AddNotePage';
 
+const emptyNote = {
+  noteId: '',
+  noteTitle: '',
+  action:'',
+  isOpen: false,
+};
+
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [noteModalObj, setNoteModalObj] = useState(emptyNote);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -27,6 +35,19 @@ const App = () => {
       ...notes,
       newContact,
     ]);
+  };
+
+  const onDeleteNoteHandler = (id) => {
+    const filteredNotes = notes.filter((note) => note.id !== id);
+    setNotes(filteredNotes);
+    setNoteModalObj(emptyNote);
+  };
+
+  const toggleModal = (newObj) => {
+    setNoteModalObj({
+      ...noteModalObj,
+      ...newObj,
+    });
   };
 
   useEffect(() => {
@@ -56,11 +77,24 @@ const App = () => {
           <Routes>
             <Route
               path="/"
-              element={<HomePage notes={notes}/>}
+              element={
+                <HomePage
+                  notes={notes}
+                  noteModalObj={noteModalObj}
+                  toggleModal={toggleModal}
+                  onDeleteNoteHandler={onDeleteNoteHandler}
+                />
+              }
             />
             <Route
               path='/notes/:id'
-              element={<NoteDetailPage notes={notes} />}
+              element={
+                <NoteDetailPage
+                  notes={notes}
+                  noteModalObj={noteModalObj}
+                  toggleModal={toggleModal}
+                />
+              }
             />
             <Route
               path='/add'
