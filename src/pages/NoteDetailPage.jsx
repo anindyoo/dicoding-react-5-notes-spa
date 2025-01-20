@@ -32,7 +32,6 @@ const NoteDetailPage = ({
           />
         </NoteWrapper>
         <NoteActionModal
-          pageOrigin="detail"
           noteModalObj={noteModalObj}
           toggleModal={toggleModal}
           onDeleteNoteHandler={onDeleteNoteHandler}

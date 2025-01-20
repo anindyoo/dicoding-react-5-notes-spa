@@ -1,9 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const NoteActionModalButtons = ({
-  pageOrigin,
   modalConfirm,
   noteModalObj,
   toggleModal,
@@ -11,13 +10,12 @@ const NoteActionModalButtons = ({
   onArchiveNoteHandler,
 }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const selectedOnClickAction = () => {
     if (noteModalObj.action === 'delete') {
       onDeleteNoteHandler(noteModalObj.noteId);
-      if (pageOrigin === 'detail') {
-        navigate('/');
-      }
+      location.pathname === '/archive' ? navigate('/archive') : navigate('/');
     } else {
       onArchiveNoteHandler(noteModalObj.noteId);
     }
@@ -63,7 +61,6 @@ const NoteActionModalButtons = ({
 };
 
 NoteActionModalButtons.propTypes = {
-  pageOrigin: PropTypes.string.isRequired,
   modalConfirm: PropTypes.string.isRequired,
   noteModalObj: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired,

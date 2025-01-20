@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+
+const defaultNote = {
+  body: '',
+  title: '',
+};
 
 const NoteInput = ({ onAddNoteHandler }) => {
-  const defaultNote = {
-    body: '',
-    title: '',
-  };
   const [noteObjInput, setNoteObjInput] = useState(defaultNote);
+  const navigate = useNavigate();
 
   const onNoteInputChange = (event) => {
     event.preventDefault();
@@ -28,6 +31,7 @@ const NoteInput = ({ onAddNoteHandler }) => {
       document.getElementById('title-input').innerHTML = '';
       document.getElementById('title-body').innerHTML = '';
       setNoteObjInput(defaultNote);
+      navigate('/');
     }
   };
 

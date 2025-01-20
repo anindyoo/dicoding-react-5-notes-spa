@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import NoteCard from '../components/NoteCard/NoteCard';
 import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
 import { getActiveNotes } from '../utils/local-data';
+import NotesList from '../components/NotesList/NotesList';
 
 const HomePage = ({
   notes,
@@ -25,30 +25,8 @@ const HomePage = ({
       >
         Notes
       </h2>
-      <ul className="
-      home-page__notes-list
-      grid grid-cols-4 gap-5"
-      >
-        {activeNotes.length > 0
-          ? activeNotes?.map((note) => (
-            <li
-              key={note.id}
-              className="home-page__notes-list__list-item"
-            >
-              <NoteCard
-                id={note.id}
-                title={note.title}
-                body={note.body}
-                createdAt={note.createdAt}
-                archived={note.archived}
-                toggleModal={toggleModal}
-              />
-            </li>
-          ))
-          : <div>empty</div>}
-      </ul>
+      <NotesList notes={activeNotes} toggleModal={toggleModal}/>
       <NoteActionModal
-        pageOrigin="home"
         noteModalObj={noteModalObj}
         toggleModal={toggleModal}
         onDeleteNoteHandler={onDeleteNoteHandler}

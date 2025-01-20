@@ -12,7 +12,6 @@ import ArchivePage from './pages/ArchivePage';
 const emptyNote = {
   noteId: '',
   noteTitle: '',
-  pageOrigin: '',
   isArchivedNote: false,
   action:'',
   isOpen: false,

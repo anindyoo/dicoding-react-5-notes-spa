@@ -21,12 +21,14 @@ const AddNoteButton = ({ isSidebarOpen }) => {
       <PlusIcon className={`
       min-w-6 max-h-6
       transition-all duration-200 ease-in-out
-      ${isSidebarOpen ? '' : 'translate-x-0.5'}`} />
+      ${isSidebarOpen ? '' : 'translate-x-0.5'}`}
+      />
       <span className={`
       overflow-x-hidden
       transition-all duration-1000 ease-in-out
       ${isSidebarOpen ? 'visible' : 'invisible w-0'}
-      `}>
+      `}
+      >
         Add a new note
       </span>
     </Link>

@@ -25,7 +25,6 @@ const modalTypesData = [
 ];
 
 const NoteActionModal = ({
-  pageOrigin,
   noteModalObj,
   toggleModal,
   onDeleteNoteHandler,
@@ -60,7 +59,6 @@ const NoteActionModal = ({
           toggleModal={toggleModal}
         />
         <NoteActionModalButtons
-          pageOrigin={pageOrigin}
           modalConfirm={selectedModalType?.confirm}
           noteModalObj={noteModalObj}
           toggleModal={toggleModal}
@@ -84,7 +82,6 @@ const NoteActionModal = ({
 };
 
 NoteActionModal.propTypes = {
-  pageOrigin: PropTypes.string.isRequired,
   noteModalObj: PropTypes.object.isRequired,
   toggleModal: PropTypes.func.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,

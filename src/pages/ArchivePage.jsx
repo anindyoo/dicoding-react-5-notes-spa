@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { getArchivedNotes } from '../utils/local-data';
-import NoteCard from '../components/NoteCard/NoteCard';
 import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
+import NotesList from '../components/NotesList/NotesList';
 
 const ArchivePage = ({
   notes,
@@ -25,31 +25,8 @@ const ArchivePage = ({
       >
         Archived Notes
       </h2>
-      <ul className="
-      home-page__notes-list
-      grid grid-cols-4 gap-5"
-      >
-        {archivedNotes.length > 0
-          ? archivedNotes?.map((note) => (
-            <li
-              key={note.id}
-              className="home-page__notes-list__list-item"
-            >
-              <NoteCard
-                id={note.id}
-                title={note.title}
-                body={note.body}
-                createdAt={note.createdAt}
-                archived={note.archived}
-                toggleModal={toggleModal}
-              />
-            </li>
-          ))
-          : <div>empty</div>
-        }
-      </ul>
+      <NotesList notes={archivedNotes} toggleModal={toggleModal}/>
       <NoteActionModal
-        pageOrigin="home"
         noteModalObj={noteModalObj}
         toggleModal={toggleModal}
         onDeleteNoteHandler={onDeleteNoteHandler}
