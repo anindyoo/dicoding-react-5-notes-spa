@@ -32,7 +32,11 @@ const HomePage = ({
         keyword={keyword}
         keywordChange={keywordChange}
       />
-      <NotesList notes={activeNotes} toggleModal={toggleModal}/>
+      <NotesList
+        notes={activeNotes}
+        toggleModal={toggleModal}
+        keyword={keyword}
+      />
       <NoteActionModal
         noteModalObj={noteModalObj}
         toggleModal={toggleModal}

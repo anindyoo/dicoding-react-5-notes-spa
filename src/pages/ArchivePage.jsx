@@ -32,7 +32,11 @@ const ArchivePage = ({
         keyword={keyword}
         keywordChange={keywordChange}
       />
-      <NotesList notes={archivedNotes} toggleModal={toggleModal}/>
+      <NotesList
+        notes={archivedNotes}
+        toggleModal={toggleModal}
+        keyword={keyword}
+      />
       <NoteActionModal
         noteModalObj={noteModalObj}
         toggleModal={toggleModal}
