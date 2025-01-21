@@ -8,6 +8,7 @@ import SearchBar from '../components/SearchBar/SearchBar';
 const HomePage = ({
   notes,
   noteModalObj,
+  isSidebarOpen,
   toggleModal,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
@@ -34,6 +35,7 @@ const HomePage = ({
       />
       <NotesList
         notes={activeNotes}
+        isSidebarOpen={isSidebarOpen}
         toggleModal={toggleModal}
         keyword={keyword}
       />
@@ -50,6 +52,7 @@ const HomePage = ({
 HomePage.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   noteModalObj: PropTypes.object.isRequired,
+  isSidebarOpen: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,

@@ -9,14 +9,14 @@ const AddNoteButton = ({ isSidebarOpen }) => {
       to="/add"
       className={`
       add-note-button
-      flex flex-row gap-1 items-center justify-center
+      flex flex-col xs:flex-row gap-1 items-center justify-center
       min-w-10 h-10
       p-2
       rounded-xl
       bg-primaryColor text-white
       transition-all duration-200 ease-in-out
       hover:brightness-90
-      ${isSidebarOpen ? 'w-64' : ''}`}
+      ${isSidebarOpen ? 'w-64' : 'w-max md:w-auto'}`}
     >
       <PlusIcon className={`
       min-w-6 max-h-6
@@ -25,9 +25,9 @@ const AddNoteButton = ({ isSidebarOpen }) => {
       />
       <span className={`
       overflow-x-hidden
+      hidden xs:block
       transition-all duration-1000 ease-in-out
-      ${isSidebarOpen ? 'visible' : 'invisible w-0'}
-      `}
+      ${isSidebarOpen ? 'visible' : 'md:invisible md:w-0'}`}
       >
         Add a new note
       </span>

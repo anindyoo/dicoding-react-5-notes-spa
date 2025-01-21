@@ -88,8 +88,9 @@ const App = () => {
         notes-spa__main
         flex justify-center
         w-full h-screen
-        pl-5 pr-20 py-4
-        rounded-tl-3xl
+        px-5 md:pl-5 md:pr-20 py-4
+        pb-96
+        md:rounded-tl-3xl
         overflow-y-scroll
         shadow-inner
         bg-background">
@@ -100,6 +101,7 @@ const App = () => {
                 <HomePage
                   notes={searchedNotes}
                   noteModalObj={noteModalObj}
+                  isSidebarOpen={isSidebarOpen}
                   toggleModal={toggleModal}
                   onDeleteNoteHandler={onDeleteNoteHandler}
                   onArchiveNoteHandler={onArchiveNoteHandler}

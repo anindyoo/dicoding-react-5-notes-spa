@@ -15,7 +15,7 @@ const Navigation = ({ isSidebarOpen }) => {
     <nav className="navigation">
       <ul className="
       navigation__list
-      flex flex-col gap-2"
+      flex flex-row md:flex-col gap-3 md:gap-2"
       >
         {navigationData.map((data) => (
           <li
@@ -26,7 +26,7 @@ const Navigation = ({ isSidebarOpen }) => {
               to={data.path}
               className={`
               navigation__list-item__link
-              flex flex-row gap-4 justify-start
+              flex flex-row gap-2 md:gap-4 justify-start
               min-w-10 h-10
               p-2
               rounded-xl
@@ -42,7 +42,7 @@ const Navigation = ({ isSidebarOpen }) => {
               <span className={`
               navigation__list-item__link-label
               transition-all duration-1000 ease-in-out
-              ${isSidebarOpen ? 'visible' : 'invisible w-0'}`}
+              ${isSidebarOpen ? 'visible' : 'md:invisible md:w-0'}`}
               >
                 {data.name}
               </span>

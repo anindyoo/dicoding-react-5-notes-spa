@@ -7,15 +7,22 @@ const Sidebar = ({ isSidebarOpen }) => {
   return (
     <div className={`
     sidebar
-    flex flex-col gap-2
-    px-4 pt-2
+    fixed left-0 bottom-0 z-10 md:static
+    flex flex-row md:flex-col gap-2
+    justify-between md:justify-normal
+    w-full
+    p-5 md:px-4 md:pt-2
+    bg-white md:bg-auto
     transition-[width]
     ${isSidebarOpen
-      ? 'w-72 duration-200 ease-in'
-      : 'w-[4.5rem] duration-700 overflow-x-hidden ease-out'}`}
+      ? 'md:w-72 duration-200 ease-in'
+      : 'md:w-[4.5rem] duration-700 overflow-x-hidden ease-out'}`}
     >
       <AddNoteButton isSidebarOpen={isSidebarOpen} />
-      <hr className="my-2 bg-accentColor opacity-50" />
+      <hr className="
+      hidden md:block
+      my-2
+      bg-accentColor opacity-50" />
       <Navigation isSidebarOpen={isSidebarOpen} />
     </div>
   );
