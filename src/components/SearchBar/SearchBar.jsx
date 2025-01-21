@@ -11,12 +11,12 @@ const SearchBar = ({
     search-bar
     relative
     flex flex-row items-center
+    h-max min-h-max
     rounded-lg
     border border-accentColor border-opacity-30
-    shadow-md
-    overflow-x-hidden"
+    shadow-md"
     >
-      <div className="search-bar__icon absolute left-2 text-accentColor">
+      <div className="search-bar__icon absolute left-2 pointer-events-none text-accentColor">
         <MagnifyingGlassIcon className="w-6" />
       </div>
       <input
@@ -27,7 +27,8 @@ const SearchBar = ({
         className="
         search-bar__input
         w-full
-        p-2 pl-10"
+        p-2 pl-10
+        rounded-lg"
       />
     </div>
   );

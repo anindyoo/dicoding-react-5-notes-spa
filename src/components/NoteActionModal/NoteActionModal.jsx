@@ -38,6 +38,7 @@ const NoteActionModal = ({
       className="
       note-action-modal__dark-bg
       fixed top-0 left-0 z-40
+      px-3 sm:px-0
       bg-opacity-40 bg-accentColor
       w-screen h-screen"
     >
@@ -45,8 +46,8 @@ const NoteActionModal = ({
         className="
         note-action-modal
         flex flex-col gap-10
-        w-[30%]
-        mt-[20%] mx-auto
+        max-w-[26rem]
+        mt-72 md:mt-[20%] mx-auto
         px-4 py-5
         rounded-lg
         border border-accentColor border-opacity-30

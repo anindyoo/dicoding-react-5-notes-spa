@@ -6,7 +6,7 @@ const NoteWrapper = ({ children }) => {
     <div className="
     note-wrapper
     flex flex-col mx-auto
-    w-[29.75rem] h-max
+    w-full md:w-[29.75rem] h-max
     rounded-2xl
     px-6 py-8
     shadow-md

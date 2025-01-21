@@ -7,11 +7,13 @@ const Header = ({ toggleSidebar }) => {
   return (
     <header className="
     notes-spa__header
-    flex flex-row gap-5
+    flex flex-row gap-5 justify-center md:justify-normal
     px-4 py-4"
     >
       <button
-        className="notes-spa__sidebar-toggler"
+        className="
+        notes-spa__sidebar-toggler
+        hidden md:block"
         type="button"
         onClick={toggleSidebar}
       >

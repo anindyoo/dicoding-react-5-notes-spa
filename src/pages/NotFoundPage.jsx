@@ -12,7 +12,7 @@ const NotFoundPage = ({ category, noteId }) => {
       <div className="not-found-page__content text-primaryColor">
         <h2 className="flex flex-row items-center gap-4">
           <ExclamationTriangleIcon className="w-20 mt-2" />
-          <span className="text-[5rem]">NOT FOUND</span>
+          <span className="text-[5rem]">404 NOT FOUND</span>
         </h2>
         <p className="text-xl font-light">
           {category === 'detail'
