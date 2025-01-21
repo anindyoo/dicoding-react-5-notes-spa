@@ -3,6 +3,7 @@ import React from 'react';
 import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
 import { getActiveNotes } from '../utils/local-data';
 import NotesList from '../components/NotesList/NotesList';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 const HomePage = ({
   notes,
@@ -10,6 +11,8 @@ const HomePage = ({
   toggleModal,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
+  keyword,
+  keywordChange,
 }) => {
   const activeNotes = getActiveNotes(notes);
 
@@ -25,6 +28,10 @@ const HomePage = ({
       >
         Notes
       </h2>
+      <SearchBar
+        keyword={keyword}
+        keywordChange={keywordChange}
+      />
       <NotesList notes={activeNotes} toggleModal={toggleModal}/>
       <NoteActionModal
         noteModalObj={noteModalObj}
@@ -42,6 +49,8 @@ HomePage.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
+  keyword: PropTypes.string.isRequired,
+  keywordChange: PropTypes.func.isRequired,
 };
 
 export default HomePage;

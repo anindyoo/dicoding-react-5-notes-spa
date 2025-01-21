@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import HomePage from './pages/HomePage';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
-import { Route, Routes } from 'react-router-dom';
+import { Route, Routes, useSearchParams } from 'react-router-dom';
 import { getAllNotes } from './utils/local-data';
 import NoteDetailPage from './pages/NoteDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
@@ -21,6 +21,8 @@ const App = () => {
   const [notes, setNotes] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [noteModalObj, setNoteModalObj] = useState(emptyNote);
+  const [searchParams, setSearchParams] = useSearchParams('');
+  const keyword = searchParams.get('keyword') || '';
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -61,6 +63,12 @@ const App = () => {
     });
   };
 
+  const changeSearchParams = (keyword) => setSearchParams({ keyword });
+
+  const searchedNotes = notes.filter((note) => (
+    note.title.toLowerCase().includes(keyword?.toLowerCase())
+  ));
+
   useEffect(() => {
     const notes = getAllNotes();
     setNotes(notes);
@@ -90,11 +98,13 @@ const App = () => {
               path="/"
               element={
                 <HomePage
-                  notes={notes}
+                  notes={searchedNotes}
                   noteModalObj={noteModalObj}
                   toggleModal={toggleModal}
                   onDeleteNoteHandler={onDeleteNoteHandler}
                   onArchiveNoteHandler={onArchiveNoteHandler}
+                  keyword={keyword}
+                  keywordChange={changeSearchParams}
                 />
               }
             />
@@ -118,11 +128,13 @@ const App = () => {
               path='/archive'
               element={
                 <ArchivePage
-                  notes={notes}
+                  notes={searchedNotes}
                   noteModalObj={noteModalObj}
                   toggleModal={toggleModal}
                   onDeleteNoteHandler={onDeleteNoteHandler}
                   onArchiveNoteHandler={onArchiveNoteHandler}
+                  keyword={keyword}
+                  keywordChange={changeSearchParams}
                 />
               }
             />
