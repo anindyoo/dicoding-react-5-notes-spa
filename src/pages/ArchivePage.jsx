@@ -3,6 +3,7 @@ import React from 'react';
 import { getArchivedNotes } from '../utils/local-data';
 import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
 import NotesList from '../components/NotesList/NotesList';
+import SearchBar from '../components/SearchBar/SearchBar';
 
 const ArchivePage = ({
   notes,
@@ -10,6 +11,8 @@ const ArchivePage = ({
   toggleModal,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
+  keyword,
+  keywordChange,
 }) => {
   const archivedNotes = getArchivedNotes(notes);
 
@@ -25,7 +28,15 @@ const ArchivePage = ({
       >
         Archived Notes
       </h2>
-      <NotesList notes={archivedNotes} toggleModal={toggleModal}/>
+      <SearchBar
+        keyword={keyword}
+        keywordChange={keywordChange}
+      />
+      <NotesList
+        notes={archivedNotes}
+        toggleModal={toggleModal}
+        keyword={keyword}
+      />
       <NoteActionModal
         noteModalObj={noteModalObj}
         toggleModal={toggleModal}
@@ -42,6 +53,8 @@ ArchivePage.propTypes = {
   toggleModal: PropTypes.func.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
+  keyword: PropTypes.string.isRequired,
+  keywordChange: PropTypes.func.isRequired,
 };
 
 export default ArchivePage;
