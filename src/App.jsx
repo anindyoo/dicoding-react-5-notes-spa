@@ -26,7 +26,7 @@ const App = () => {
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  const onAddNoteHandler = ({ body, title }) => {
+  const onAddNoteHandler = ({ title, body }) => {
     const newContact = {
       id: (+new Date).toString(),
       title,

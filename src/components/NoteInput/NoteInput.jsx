@@ -1,43 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
-
-const defaultNote = {
-  body: '',
-  title: '',
-};
+import useDivInput from '../../hooks/useDivInput';
 
 const NoteInput = ({ onAddNoteHandler }) => {
-  const [noteObjInput, setNoteObjInput] = useState(defaultNote);
+  const [title, handleTitleChange] = useDivInput('');
+  const [body, handleBodyChange] = useDivInput('');
   const navigate = useNavigate();
-
-  const onNoteInputChange = (event) => {
-    event.preventDefault();
-
-    const name = event.target.dataset.name;
-    const value = event.target.innerHTML;
-
-    setNoteObjInput({
-      ...noteObjInput,
-      [name]: value,
-    });
-  };
 
   const onNoteSubmitHandler = (event) => {
     event.preventDefault();
 
-    if (noteObjInput.title.length > 0 && noteObjInput.body.length > 0) {
-      onAddNoteHandler(noteObjInput);
-      document.getElementById('title-input').innerHTML = '';
-      document.getElementById('title-body').innerHTML = '';
-      setNoteObjInput(defaultNote);
+    if (title.length && body.length) {
+      onAddNoteHandler({ title, body });
       navigate('/');
     }
   };
 
   return (
     <>
-      {!noteObjInput.title.length && (
+      {!title.length && (
         <div className="
         note-input-placeholder__title
         relative top-1
@@ -58,12 +40,12 @@ const NoteInput = ({ onAddNoteHandler }) => {
         px-1
         text-xl font-medium
         focus:outline-none"
-        onInput={onNoteInputChange}
+        onInput={handleTitleChange}
         data-name="title"
         contentEditable
       />
       <hr className="mb-2" />
-      {!noteObjInput.body.length && (
+      {!body.length && (
         <div className="
         note-input-placeholder__body
         relative top-1
@@ -76,14 +58,14 @@ const NoteInput = ({ onAddNoteHandler }) => {
         </div>
       )}
       <div
-        id="title-body"
+        id="body-input"
         className="
         note-input__body
         min-h-60
         px-1
         text-lg font-light
         focus:outline-none"
-        onInput={onNoteInputChange}
+        onInput={handleBodyChange}
         data-name="body"
         contentEditable
       />
