@@ -3,6 +3,7 @@ import React from 'react';
 import { showFormattedDate } from '../../utils';
 import NoteCardButtons from './NoteCardButtons';
 import parse from 'html-react-parser';
+import { noteItemPropTypes } from '../../utils/definitions';
 
 const NoteCard = ({
   id,
@@ -55,10 +56,7 @@ const NoteCard = ({
 };
 
 NoteCard.propTypes = {
-  id: PropTypes.string.isRequired,
-  title: PropTypes.string.isRequired,
-  body: PropTypes.string.isRequired,
-  createdAt: PropTypes.string.isRequired,
+  ...noteItemPropTypes,
   archived: PropTypes.bool.isRequired,
   toggleModal: PropTypes.func.isRequired,
 };
