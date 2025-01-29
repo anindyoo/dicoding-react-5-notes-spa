@@ -43,7 +43,7 @@ const NotesList = ({
 NotesList.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.shape(noteItemPropTypes)),
   isSidebarOpen: PropTypes.bool,
-  toggleModal: PropTypes.func.isRequired,
+  toggleModal: PropTypes.objectOf(PropTypes.func).isRequired,
   keyword: PropTypes.string.isRequired,
 };
 

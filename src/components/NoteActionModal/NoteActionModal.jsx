@@ -2,6 +2,7 @@ import React from 'react';
 import NoteActionModalContent from './NoteActionModalContent';
 import NoteActionModalButtons from './NoteActionModalButtons';
 import PropTypes from 'prop-types';
+import { noteActionModalTypes } from '../../utils/definitions';
 
 const modalTypesData = [
   {
@@ -25,16 +26,16 @@ const modalTypesData = [
 ];
 
 const NoteActionModal = ({
-  noteModalObj,
+  modalValue,
   toggleModal,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
 }) => {
-  const selectedModalType = modalTypesData.find((type) => type.id === noteModalObj.action);
+  const selectedModalType = modalTypesData.find((type) => type.id === modalValue.action);
 
   return selectedModalType && (
     <dialog
-      open={noteModalObj.isOpen}
+      open={modalValue.isOpen}
       className="
       note-action-modal__dark-bg
       fixed top-0 left-0 z-40
@@ -56,12 +57,12 @@ const NoteActionModal = ({
         <NoteActionModalContent
           modalTitle={selectedModalType?.title}
           modalBody={selectedModalType?.body}
-          noteModalObj={noteModalObj}
+          modalValue={modalValue}
           toggleModal={toggleModal}
         />
         <NoteActionModalButtons
           modalConfirm={selectedModalType?.confirm}
-          noteModalObj={noteModalObj}
+          modalValue={modalValue}
           toggleModal={toggleModal}
           onDeleteNoteHandler={onDeleteNoteHandler}
           onArchiveNoteHandler={onArchiveNoteHandler}
@@ -69,10 +70,7 @@ const NoteActionModal = ({
       </div>
       <button
         type="button"
-        onClick={() => toggleModal({
-          action: '',
-          isOpen: false,
-        })}
+        onClick={() => toggleModal.closeModal()}
         className="
         invisible-button
         fixed top-0 left-0 -z-10 bg-none
@@ -83,8 +81,8 @@ const NoteActionModal = ({
 };
 
 NoteActionModal.propTypes = {
-  noteModalObj: PropTypes.object.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  modalValue: PropTypes.shape(noteActionModalTypes).isRequired,
+  toggleModal: PropTypes.objectOf(PropTypes.func).isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
 };

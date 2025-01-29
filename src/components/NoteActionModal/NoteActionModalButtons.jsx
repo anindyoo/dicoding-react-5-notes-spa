@@ -1,10 +1,11 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { noteActionModalTypes } from '../../utils/definitions';
 
 const NoteActionModalButtons = ({
   modalConfirm,
-  noteModalObj,
+  modalValue,
   toggleModal,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
@@ -13,13 +14,13 @@ const NoteActionModalButtons = ({
   const location = useLocation();
 
   const selectedOnClickAction = () => {
-    if (noteModalObj.action === 'delete') {
-      onDeleteNoteHandler(noteModalObj.noteId);
+    if (modalValue.action === 'delete') {
+      onDeleteNoteHandler(modalValue.noteId);
       location.pathname === '/archive' ? navigate('/archive') : navigate('/');
     } else {
-      onArchiveNoteHandler(noteModalObj.noteId);
+      onArchiveNoteHandler(modalValue.noteId);
     }
-
+    toggleModal.closeModal();
   };
 
   return (
@@ -35,7 +36,7 @@ const NoteActionModalButtons = ({
         px-3 py-2
         rounded-md
         text-white
-        ${noteModalObj.action === 'delete'
+        ${modalValue.action === 'delete'
           ? 'bg-dangerColor'
           : 'bg-primaryColor'}
         `}
@@ -44,10 +45,7 @@ const NoteActionModalButtons = ({
       </button>
       <button
         type="button"
-        onClick={() => toggleModal({
-          action: '',
-          isOpen: false,
-        })}
+        onClick={() => toggleModal.closeModal()}
         className="
         secondary-action-button
         px-3 py-2
@@ -62,8 +60,8 @@ const NoteActionModalButtons = ({
 
 NoteActionModalButtons.propTypes = {
   modalConfirm: PropTypes.string.isRequired,
-  noteModalObj: PropTypes.object.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  modalValue: PropTypes.shape(noteActionModalTypes).isRequired,
+  toggleModal: PropTypes.objectOf(PropTypes.func).isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
 };

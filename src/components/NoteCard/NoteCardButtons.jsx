@@ -57,7 +57,7 @@ NoteCardButtons.propTypes = {
   id: PropTypes.string.isRequired,
   noteTitle: PropTypes.string.isRequired,
   archived: PropTypes.bool.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  toggleModal: PropTypes.objectOf(PropTypes.func).isRequired,
 };
 
 export default NoteCardButtons;

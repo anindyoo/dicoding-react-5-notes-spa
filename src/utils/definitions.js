@@ -6,3 +6,11 @@ export const noteItemPropTypes = {
   body: PropTypes.string.isRequired,
   createdAt: PropTypes.string.isRequired,
 };
+
+export const noteActionModalTypes = {
+  noteId: PropTypes.string.isRequired,
+  noteTitle: PropTypes.string.isRequired,
+  action: PropTypes.string.isRequired,
+  isArchivedNote: PropTypes.bool.isRequired,
+  isOpen: PropTypes.bool.isRequired,
+};

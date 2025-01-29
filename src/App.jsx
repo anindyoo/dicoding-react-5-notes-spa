@@ -9,18 +9,9 @@ import NotFoundPage from './pages/NotFoundPage';
 import AddNotePage from './pages/AddNotePage';
 import ArchivePage from './pages/ArchivePage';
 
-const emptyNote = {
-  noteId: '',
-  noteTitle: '',
-  isArchivedNote: false,
-  action:'',
-  isOpen: false,
-};
-
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [noteModalObj, setNoteModalObj] = useState(emptyNote);
   const [searchParams, setSearchParams] = useSearchParams('');
   const keyword = searchParams.get('keyword') || '';
 
@@ -44,7 +35,6 @@ const App = () => {
   const onDeleteNoteHandler = (id) => {
     const filteredNotes = notes.filter((note) => note.id !== id);
     setNotes(filteredNotes);
-    setNoteModalObj(emptyNote);
   };
 
   const onArchiveNoteHandler = (id) => {
@@ -53,14 +43,6 @@ const App = () => {
       : note,
     );
     setNotes(updatedNotes);
-    setNoteModalObj(emptyNote);
-  };
-
-  const toggleModal = (newObj) => {
-    setNoteModalObj({
-      ...noteModalObj,
-      ...newObj,
-    });
   };
 
   const changeSearchParams = (keyword) => setSearchParams({ keyword });
@@ -100,9 +82,7 @@ const App = () => {
               element={
                 <HomePage
                   notes={searchedNotes}
-                  noteModalObj={noteModalObj}
                   isSidebarOpen={isSidebarOpen}
-                  toggleModal={toggleModal}
                   onDeleteNoteHandler={onDeleteNoteHandler}
                   onArchiveNoteHandler={onArchiveNoteHandler}
                   keyword={keyword}
@@ -115,8 +95,6 @@ const App = () => {
               element={
                 <NoteDetailPage
                   notes={notes}
-                  noteModalObj={noteModalObj}
-                  toggleModal={toggleModal}
                   onDeleteNoteHandler={onDeleteNoteHandler}
                   onArchiveNoteHandler={onArchiveNoteHandler}
                 />
@@ -131,8 +109,6 @@ const App = () => {
               element={
                 <ArchivePage
                   notes={searchedNotes}
-                  noteModalObj={noteModalObj}
-                  toggleModal={toggleModal}
                   onDeleteNoteHandler={onDeleteNoteHandler}
                   onArchiveNoteHandler={onArchiveNoteHandler}
                   keyword={keyword}

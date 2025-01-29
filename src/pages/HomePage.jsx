@@ -4,17 +4,17 @@ import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
 import { getActiveNotes } from '../utils/local-data';
 import NotesList from '../components/NotesList/NotesList';
 import SearchBar from '../components/SearchBar/SearchBar';
+import useNoteActionModal from '../hooks/useNoteActionModal';
 
 const HomePage = ({
   notes,
-  noteModalObj,
   isSidebarOpen,
-  toggleModal,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
   keyword,
   keywordChange,
 }) => {
+  const [modalValue, toggleModal] = useNoteActionModal();
   const activeNotes = getActiveNotes(notes);
 
   return (
@@ -40,7 +40,7 @@ const HomePage = ({
         keyword={keyword}
       />
       <NoteActionModal
-        noteModalObj={noteModalObj}
+        modalValue={modalValue}
         toggleModal={toggleModal}
         onDeleteNoteHandler={onDeleteNoteHandler}
         onArchiveNoteHandler={onArchiveNoteHandler}
@@ -51,9 +51,7 @@ const HomePage = ({
 
 HomePage.propTypes = {
   notes: PropTypes.arrayOf(PropTypes.object).isRequired,
-  noteModalObj: PropTypes.object.isRequired,
   isSidebarOpen: PropTypes.bool.isRequired,
-  toggleModal: PropTypes.func.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
   keyword: PropTypes.string.isRequired,

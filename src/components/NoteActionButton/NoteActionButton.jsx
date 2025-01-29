@@ -39,11 +39,11 @@ const NoteActionButton = ({
       hover:bg-accentColor hover:bg-opacity-20"
       type="button"
       title={selectedAction.title}
-      onClick={() => toggleModal({
-        noteId,
-        noteTitle,
+      onClick={() => toggleModal.openModal({
+        id: noteId,
+        title: noteTitle,
         action: selectedAction.id,
-        isArchivedNote: action === 'unarchive',
+        isArchived: action === 'unarchive',
         isOpen: true,
       })}
     >
@@ -58,7 +58,7 @@ NoteActionButton.propTypes = {
   noteId: PropTypes.string.isRequired,
   noteTitle: PropTypes.string.isRequired,
   action: PropTypes.string.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  toggleModal: PropTypes.objectOf(PropTypes.func).isRequired,
 };
 
 export default NoteActionButton;
