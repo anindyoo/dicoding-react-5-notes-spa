@@ -20,6 +20,7 @@ const SearchBar = ({
         <MagnifyingGlassIcon className="w-6" />
       </div>
       <input
+        id="search-query"
         type="text"
         placeholder="Search note title..."
         value={keyword}
