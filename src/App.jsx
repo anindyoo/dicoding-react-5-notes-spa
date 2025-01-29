@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import HomePage from './pages/HomePage';
-import Header from './components/Header/Header';
-import Sidebar from './components/Sidebar/Sidebar';
 import { Route, Routes, useSearchParams } from 'react-router-dom';
 import { getAllNotes } from './utils/local-data';
 import NoteDetailPage from './pages/NoteDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AddNotePage from './pages/AddNotePage';
 import ArchivePage from './pages/ArchivePage';
+import MainLayout from './layouts/MainLayout';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
@@ -63,66 +62,61 @@ const App = () => {
     flex flex-col
     h-screen overflow-hidden"
     >
-      <Header toggleSidebar={toggleSidebar} />
-      <div className="flex flex-row">
-        <Sidebar isSidebarOpen={isSidebarOpen} />
-        <main className="
-        notes-spa__main
-        flex justify-center
-        w-full h-screen
-        px-5 md:pl-5 md:pr-20 py-4
-        pb-96
-        md:rounded-tl-3xl
-        overflow-y-scroll
-        shadow-inner
-        bg-background">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <HomePage
-                  notes={searchedNotes}
-                  isSidebarOpen={isSidebarOpen}
-                  onDeleteNoteHandler={onDeleteNoteHandler}
-                  onArchiveNoteHandler={onArchiveNoteHandler}
-                  keyword={keyword}
-                  keywordChange={changeSearchParams}
-                />
-              }
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MainLayout
+              isSidebarOpen={isSidebarOpen}
+              toggleSidebar={toggleSidebar}
             />
-            <Route
-              path='/notes/:id'
-              element={
-                <NoteDetailPage
-                  notes={notes}
-                  onDeleteNoteHandler={onDeleteNoteHandler}
-                  onArchiveNoteHandler={onArchiveNoteHandler}
-                />
-              }
-            />
-            <Route
-              path='/add'
-              element={<AddNotePage onAddNoteHandler={onAddNoteHandler} />}
-            />
-            <Route
-              path='/archive'
-              element={
-                <ArchivePage
-                  notes={searchedNotes}
-                  onDeleteNoteHandler={onDeleteNoteHandler}
-                  onArchiveNoteHandler={onArchiveNoteHandler}
-                  keyword={keyword}
-                  keywordChange={changeSearchParams}
-                />
-              }
-            />
-            <Route
-              path='*'
-              element={<NotFoundPage />}
-            />
-          </Routes>
-        </main>
-      </div>
+          }
+        >
+          <Route
+            index
+            element={
+              <HomePage
+                notes={searchedNotes}
+                isSidebarOpen={isSidebarOpen}
+                onDeleteNoteHandler={onDeleteNoteHandler}
+                onArchiveNoteHandler={onArchiveNoteHandler}
+                keyword={keyword}
+                keywordChange={changeSearchParams}
+              />
+            }
+          />
+          <Route
+            path='/notes/:id'
+            element={
+              <NoteDetailPage
+                notes={notes}
+                onDeleteNoteHandler={onDeleteNoteHandler}
+                onArchiveNoteHandler={onArchiveNoteHandler}
+              />
+            }
+          />
+          <Route
+            path='/add'
+            element={<AddNotePage onAddNoteHandler={onAddNoteHandler} />}
+          />
+          <Route
+            path='/archive'
+            element={
+              <ArchivePage
+                notes={searchedNotes}
+                onDeleteNoteHandler={onDeleteNoteHandler}
+                onArchiveNoteHandler={onArchiveNoteHandler}
+                keyword={keyword}
+                keywordChange={changeSearchParams}
+              />
+            }
+          />
+          <Route
+            path='*'
+            element={<NotFoundPage />}
+          />
+        </Route>
+      </Routes>
     </div>
   );
 };
