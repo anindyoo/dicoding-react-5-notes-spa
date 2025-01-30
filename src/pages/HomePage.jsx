@@ -1,13 +1,12 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
-import { getActiveNotes } from '../utils/local-data';
 import NotesList from '../components/NotesList/NotesList';
 import SearchBar from '../components/SearchBar/SearchBar';
 import useNoteActionModal from '../hooks/useNoteActionModal';
+import { getActiveNotes } from '../utils/network-data';
 
 const HomePage = ({
-  notes,
   isSidebarOpen,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
@@ -15,7 +14,20 @@ const HomePage = ({
   keywordChange,
 }) => {
   const [modalValue, toggleModal] = useNoteActionModal();
-  const activeNotes = getActiveNotes(notes);
+  const [notes, setNotes] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const { data } = await getActiveNotes();
+        setNotes(data);
+      } catch (error) {
+        console.error('error fetching notes: ', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <section className="
@@ -34,7 +46,7 @@ const HomePage = ({
         keywordChange={keywordChange}
       />
       <NotesList
-        notes={activeNotes}
+        notes={notes}
         isSidebarOpen={isSidebarOpen}
         toggleModal={toggleModal}
         keyword={keyword}
@@ -44,13 +56,13 @@ const HomePage = ({
         toggleModal={toggleModal}
         onDeleteNoteHandler={onDeleteNoteHandler}
         onArchiveNoteHandler={onArchiveNoteHandler}
+        updateNotes={setNotes}
       />
     </section>
   );
 };
 
 HomePage.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   isSidebarOpen: PropTypes.bool.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,

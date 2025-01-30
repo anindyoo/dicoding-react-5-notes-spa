@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { noteActionModalTypes } from '../../utils/definitions';
+import { getActiveNotes, getArchivedNotes } from '../../utils/network-data';
 
 const NoteActionModalButtons = ({
   modalConfirm,
@@ -9,17 +10,26 @@ const NoteActionModalButtons = ({
   toggleModal,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
+  updateNotes,
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const selectedOnClickAction = () => {
+  const selectedOnClickAction = async () => {
+    const isArchived = modalValue.isArchivedNote;
+
     if (modalValue.action === 'delete') {
-      onDeleteNoteHandler(modalValue.noteId);
+      await onDeleteNoteHandler(modalValue.noteId);
       location.pathname === '/archive' ? navigate('/archive') : navigate('/');
     } else {
-      onArchiveNoteHandler(modalValue.noteId);
+      await onArchiveNoteHandler(modalValue.noteId, isArchived);
     }
+
+    const { data } = isArchived
+      ? await getArchivedNotes()
+      : await getActiveNotes();
+    updateNotes(data);
+
     toggleModal.closeModal();
   };
 
@@ -64,6 +74,7 @@ NoteActionModalButtons.propTypes = {
   toggleModal: PropTypes.objectOf(PropTypes.func).isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
+  updateNotes: PropTypes.func.isRequired,
 };
 
 export default NoteActionModalButtons;

@@ -1,9 +1,17 @@
 import React from 'react';
 import NoteWrapper from '../components/NoteWrapper/NoteWrapper';
 import NoteInput from '../components/NoteInput/NoteInput';
-import PropTypes from 'prop-types';
+import { useNavigate } from 'react-router-dom';
+import { addNote } from '../utils/network-data';
 
-const AddNotePage = ({ onAddNoteHandler }) => {
+const AddNotePage = () => {
+  const navigate = useNavigate();
+
+  const onAddNoteHandler = async ({ title, body }) => {
+    await addNote({ title, body });
+    navigate('/');
+  };
+
   return (
     <section className="
     add-note-page
@@ -20,10 +28,6 @@ const AddNotePage = ({ onAddNoteHandler }) => {
       </NoteWrapper>
     </section>
   );
-};
-
-AddNotePage.propTypes = {
-  onAddNoteHandler: PropTypes.func.isRequired,
 };
 
 export default AddNotePage;

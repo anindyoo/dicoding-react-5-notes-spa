@@ -1,19 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { useNavigate } from 'react-router-dom';
 import useDivInput from '../../hooks/useDivInput';
 
 const NoteInput = ({ onAddNoteHandler }) => {
   const [title, handleTitleChange] = useDivInput('');
   const [body, handleBodyChange] = useDivInput('');
-  const navigate = useNavigate();
 
   const onNoteSubmitHandler = (event) => {
     event.preventDefault();
 
     if (title.length && body.length) {
       onAddNoteHandler({ title, body });
-      navigate('/');
     }
   };
 
