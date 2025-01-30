@@ -29,7 +29,7 @@ const NotesList = ({
             title={note.title}
             body={note.body}
             createdAt={note.createdAt}
-            archived={note.archived}
+            isArchived={note.archived}
             toggleModal={toggleModal}
           />
         </li>

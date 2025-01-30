@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { noteActionModalTypes } from '../../utils/definitions';
-import { getActiveNotes, getArchivedNotes } from '../../utils/network-data';
+import { getActiveNotes, getArchivedNotes, getNote } from '../../utils/network-data';
 
 const NoteActionModalButtons = ({
   modalConfirm,
@@ -16,19 +16,29 @@ const NoteActionModalButtons = ({
   const location = useLocation();
 
   const selectedOnClickAction = async () => {
-    const isArchived = modalValue.isArchivedNote;
+    const { noteId, action, isArchivedNote } = modalValue;
+    const isDetailPage = location.pathname.startsWith('/notes');
+    const isArchivePage = location.pathname.startsWith('/archive');
 
-    if (modalValue.action === 'delete') {
-      await onDeleteNoteHandler(modalValue.noteId);
-      location.pathname === '/archive' ? navigate('/archive') : navigate('/');
+    if (action === 'delete') {
+      await onDeleteNoteHandler(noteId);
+      (isArchivePage || isArchivedNote)
+        ? navigate('/archive')
+        : navigate('/');
     } else {
-      await onArchiveNoteHandler(modalValue.noteId, isArchived);
+      await onArchiveNoteHandler(modalValue.noteId, isArchivedNote);
+      if (isDetailPage) {
+        const { data } = await getNote(noteId);
+        updateNotes(data);
+      }
     }
 
-    const { data } = isArchived
-      ? await getArchivedNotes()
-      : await getActiveNotes();
-    updateNotes(data);
+    if (!isDetailPage) {
+      const { data } = isArchivePage
+        ? await getArchivedNotes()
+        : await getActiveNotes();
+      updateNotes(data);
+    }
 
     toggleModal.closeModal();
   };

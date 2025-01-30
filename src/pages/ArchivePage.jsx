@@ -61,7 +61,6 @@ const ArchivePage = ({
 };
 
 ArchivePage.propTypes = {
-  notes: PropTypes.arrayOf(PropTypes.object).isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
   keyword: PropTypes.string.isRequired,

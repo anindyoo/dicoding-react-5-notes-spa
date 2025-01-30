@@ -23,6 +23,7 @@ const actionsData = [
 const NoteActionButton = ({
   noteId,
   noteTitle,
+  isArchived,
   action,
   toggleModal,
 }) => {
@@ -43,7 +44,7 @@ const NoteActionButton = ({
         id: noteId,
         title: noteTitle,
         action: selectedAction.id,
-        isArchived: action === 'unarchive',
+        isArchived,
         isOpen: true,
       })}
     >
@@ -57,6 +58,7 @@ const NoteActionButton = ({
 NoteActionButton.propTypes = {
   noteId: PropTypes.string.isRequired,
   noteTitle: PropTypes.string.isRequired,
+  isArchived: PropTypes.bool.isRequired,
   action: PropTypes.string.isRequired,
   toggleModal: PropTypes.objectOf(PropTypes.func).isRequired,
 };

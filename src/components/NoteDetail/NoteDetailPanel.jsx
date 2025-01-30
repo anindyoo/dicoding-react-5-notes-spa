@@ -36,12 +36,14 @@ const NoteDetailPanel = ({
           action={archived ? 'unarchive' : 'archive'}
           noteId={noteId}
           noteTitle={noteTitle}
+          isArchived={archived}
           toggleModal={toggleModal}
         />
         <NoteActionButton
           action="delete"
           noteId={noteId}
           noteTitle={noteTitle}
+          isArchived={archived}
           toggleModal={toggleModal}
         />
       </div>

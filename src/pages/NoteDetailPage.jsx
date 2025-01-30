@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { getNote } from '../utils/local-data';
 import NoteDetail from '../components/NoteDetail/NoteDetail';
 import NotFoundPage from './NotFoundPage';
 import NoteWrapper from '../components/NoteWrapper/NoteWrapper';
 import PropTypes from 'prop-types';
 import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
 import useNoteActionModal from '../hooks/useNoteActionModal';
+import { getNote } from '../utils/network-data';
 
 const NoteDetailPage = ({
-  notes,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
 }) => {
@@ -18,9 +17,17 @@ const NoteDetailPage = ({
   const [modalValue, toggleModal] = useNoteActionModal();
 
   useEffect(() => {
-    const note = getNote(id, notes);
-    setNote(note);
-  }, [id, notes]);
+    const fetchData = async () => {
+      try {
+        const { data } = await getNote(id);
+        setNote(data);
+      } catch (error) {
+        console.error('error fetching notes: ', error);
+      }
+    };
+
+    fetchData();
+  }, [id]);
 
   return note
     ? (
@@ -36,6 +43,7 @@ const NoteDetailPage = ({
           toggleModal={toggleModal}
           onDeleteNoteHandler={onDeleteNoteHandler}
           onArchiveNoteHandler={onArchiveNoteHandler}
+          updateNotes={setNote}
         />
       </section>
     )
@@ -43,7 +51,6 @@ const NoteDetailPage = ({
 };
 
 NoteDetailPage.propTypes = {
-  notes: PropTypes.array.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
 };
