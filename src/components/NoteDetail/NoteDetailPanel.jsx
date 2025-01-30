@@ -52,7 +52,7 @@ const NoteDetailPanel = ({
 NoteDetailPanel.propTypes = {
   noteId: PropTypes.string.isRequired,
   noteTitle: PropTypes.string.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  toggleModal: PropTypes.objectOf(PropTypes.func).isRequired,
   archived: PropTypes.bool.isRequired,
 };
 

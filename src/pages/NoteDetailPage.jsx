@@ -6,16 +6,16 @@ import NotFoundPage from './NotFoundPage';
 import NoteWrapper from '../components/NoteWrapper/NoteWrapper';
 import PropTypes from 'prop-types';
 import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
+import useNoteActionModal from '../hooks/useNoteActionModal';
 
 const NoteDetailPage = ({
   notes,
-  noteModalObj,
-  toggleModal,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
 }) => {
   const { id } = useParams();
   const [note, setNote] = useState({});
+  const [modalValue, toggleModal] = useNoteActionModal();
 
   useEffect(() => {
     const note = getNote(id, notes);
@@ -32,7 +32,7 @@ const NoteDetailPage = ({
           />
         </NoteWrapper>
         <NoteActionModal
-          noteModalObj={noteModalObj}
+          modalValue={modalValue}
           toggleModal={toggleModal}
           onDeleteNoteHandler={onDeleteNoteHandler}
           onArchiveNoteHandler={onArchiveNoteHandler}
@@ -44,8 +44,6 @@ const NoteDetailPage = ({
 
 NoteDetailPage.propTypes = {
   notes: PropTypes.array.isRequired,
-  noteModalObj: PropTypes.object.isRequired,
-  toggleModal: PropTypes.func.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
 };

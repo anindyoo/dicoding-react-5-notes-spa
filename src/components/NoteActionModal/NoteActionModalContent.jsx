@@ -1,11 +1,12 @@
 import { ExclamationTriangleIcon, XMarkIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
 import React from 'react';
+import { noteActionModalTypes } from '../../utils/definitions';
 
 const NoteActionModalContent = ({
   modalTitle,
   modalBody,
-  noteModalObj,
+  modalValue,
   toggleModal,
 }) => {
   return (
@@ -25,17 +26,14 @@ const NoteActionModalContent = ({
         </div>
         <button
           title="Close toggle button."
-          onClick={() => toggleModal({
-            action: '',
-            isOpen: false,
-          })}
+          onClick={() => toggleModal.closeModal()}
           type="button"
         >
           <XMarkIcon className="w-6 text-secondaryColor" />
         </button>
       </div>
       <p className="modal__body font-light">
-        {modalBody(noteModalObj.noteTitle)}
+        {modalBody(modalValue.noteTitle)}
       </p>
     </div>
   );
@@ -44,8 +42,8 @@ const NoteActionModalContent = ({
 NoteActionModalContent.propTypes = {
   modalTitle: PropTypes.string.isRequired,
   modalBody: PropTypes.func.isRequired,
-  noteModalObj: PropTypes.object.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  modalValue: PropTypes.shape(noteActionModalTypes).isRequired,
+  toggleModal: PropTypes.objectOf(PropTypes.func).isRequired,
 };
 
 export default NoteActionModalContent;

@@ -38,7 +38,7 @@ const NoteDetail = ({ note, toggleModal }) => {
 
 NoteDetail.propTypes = {
   note: PropTypes.object.isRequired,
-  toggleModal: PropTypes.func.isRequired,
+  toggleModal: PropTypes.objectOf(PropTypes.func).isRequired,
 };
 
 export default NoteDetail;
