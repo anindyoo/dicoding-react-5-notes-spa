@@ -7,11 +7,16 @@ import NotFoundPage from './pages/NotFoundPage';
 import AddNotePage from './pages/AddNotePage';
 import ArchivePage from './pages/ArchivePage';
 import MainLayout from './layouts/MainLayout';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
+import { getUserLogged, putAccessToken } from './utils/network-data';
 
 const App = () => {
   const [notes, setNotes] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams('');
+  const [authedUser, setAuthedUser] = useState(null);
+  const [initializing, setInitializing] = useState(true);
   const keyword = searchParams.get('keyword') || '';
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
@@ -50,10 +55,58 @@ const App = () => {
     note.title.toLowerCase().includes(keyword?.toLowerCase())
   ));
 
+  const onLoginSuccess = async ({ accessToken }) => {
+    putAccessToken(accessToken);
+    const { data } = await getUserLogged();
+
+    setAuthedUser(data);
+  };
+
+  const onLogout = () => {
+    setAuthedUser(null);
+    putAccessToken('');
+  };
+
   useEffect(() => {
     const notes = getAllNotes();
     setNotes(notes);
   }, []);
+
+  useEffect(() => {
+    const fetchUserLogged = async () => {
+      const { data } = await getUserLogged();
+
+      setAuthedUser(data);
+      setInitializing(false);
+    };
+
+    fetchUserLogged();
+  }, []);
+
+  if (initializing) {
+    return 'Initializing...';
+  }
+
+  if (!authedUser) {
+    return (
+      <div className="
+      notes-spa
+      flex flex-col items-center justify-center
+      w-screen h-screen"
+      >
+        <Routes>
+          <Route
+            path="/*"
+            element={<LoginPage loginSuccess={onLoginSuccess} />}
+          />
+          <Route
+            path="/register"
+            element={<RegisterPage />}
+          />
+        </Routes>
+      </div>
+    );
+  }
 
   return (
     <div className="
@@ -69,6 +122,8 @@ const App = () => {
             <MainLayout
               isSidebarOpen={isSidebarOpen}
               toggleSidebar={toggleSidebar}
+              logout={onLogout}
+              authedUser={authedUser}
             />
           }
         >
