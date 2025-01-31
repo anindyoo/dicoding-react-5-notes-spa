@@ -1,21 +1,14 @@
-import { ArrowLeftStartOnRectangleIcon, Bars3Icon, MoonIcon, SunIcon } from '@heroicons/react/24/outline';
+import { ArrowLeftStartOnRectangleIcon, Bars3Icon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-import { DarkModeContext } from '../../App';
+import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 
 const Header = ({
   toggleSidebar,
   logout,
   authedUser,
 }) => {
-  const { isDarkMode, setIsDarkMode } = useContext(DarkModeContext);
-  const toggleDarkMode = () => {
-    setIsDarkMode(!isDarkMode);
-    localStorage.setItem('darkMode', !isDarkMode);
-    document.body.classList.toggle('dark');
-  };
-
   return (
     <header className="
     notes-spa__header
@@ -69,17 +62,7 @@ const Header = ({
       flex flex-row gap-4
       text-primaryColor dark:text-accentColor30Dark"
       >
-        <button
-          type="button"
-          onClick={toggleDarkMode}
-          title="Dark mode toggler."
-        >
-          {
-            isDarkMode
-              ? <SunIcon className="w-6" />
-              : <MoonIcon className="w-6" />
-          }
-        </button>
+        <DarkModeToggle />
         <button
           type="button"
           onClick={logout}

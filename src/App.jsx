@@ -9,6 +9,7 @@ import MainLayout from './layouts/MainLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { archiveNote, deleteNote, getUserLogged, putAccessToken, unarchiveNote } from './utils/network-data';
+import AuthLayout from './layouts/AuthLayout';
 
 export const DarkModeContext = createContext(false);
 
@@ -90,86 +91,81 @@ const App = () => {
   if (!authedUser) {
     return (
       <DarkModeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
-        <div className="
-        notes-spa
-        flex flex-col items-center justify-center
-        w-screen h-screen"
-        >
-          <Routes>
+        <Routes>
+          <Route
+            path="/"
+            element={<AuthLayout />}
+          >
             <Route
-              path="/*"
+              index
+              element={<LoginPage loginSuccess={onLoginSuccess} />}
+            />
+            <Route
+              path="*"
               element={<LoginPage loginSuccess={onLoginSuccess} />}
             />
             <Route
               path="/register"
               element={<RegisterPage />}
             />
-          </Routes>
-        </div>
+          </Route>
+        </Routes>
       </DarkModeContext.Provider>
     );
   }
 
   return (
     <DarkModeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
-      <div className="
-      notes-spa
-      center-element
-      flex flex-col
-      h-screen overflow-hidden
-      dark:bg-backgroundSecondaryDark"
-      >
-        <Routes>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <MainLayout
+              isSidebarOpen={isSidebarOpen}
+              toggleSidebar={toggleSidebar}
+              logout={onLogout}
+              authedUser={authedUser}
+            />
+          }
+        >
           <Route
-            path="/"
+            index
             element={
-              <MainLayout
+              <HomePage
                 isSidebarOpen={isSidebarOpen}
-                toggleSidebar={toggleSidebar}
-                logout={onLogout}
-                authedUser={authedUser}
+                onDeleteNoteHandler={onDeleteNoteHandler}
+                onArchiveNoteHandler={onArchiveNoteHandler}
               />
             }
-          >
-            <Route
-              index
-              element={
-                <HomePage
-                  isSidebarOpen={isSidebarOpen}
-                  onDeleteNoteHandler={onDeleteNoteHandler}
-                  onArchiveNoteHandler={onArchiveNoteHandler}
-                />
-              }
-            />
-            <Route
-              path='/notes/:id'
-              element={
-                <NoteDetailPage
-                  onDeleteNoteHandler={onDeleteNoteHandler}
-                  onArchiveNoteHandler={onArchiveNoteHandler}
-                />
-              }
-            />
-            <Route
-              path='/add'
-              element={<AddNotePage />}
-            />
-            <Route
-              path='/archive'
-              element={
-                <ArchivePage
-                  onDeleteNoteHandler={onDeleteNoteHandler}
-                  onArchiveNoteHandler={onArchiveNoteHandler}
-                />
-              }
-            />
-            <Route
-              path='*'
-              element={<NotFoundPage />}
-            />
-          </Route>
-        </Routes>
-      </div>
+          />
+          <Route
+            path="/notes/:id"
+            element={
+              <NoteDetailPage
+                onDeleteNoteHandler={onDeleteNoteHandler}
+                onArchiveNoteHandler={onArchiveNoteHandler}
+              />
+            }
+          />
+          <Route
+            path="/add"
+            element={<AddNotePage />}
+          />
+          <Route
+            path="/archive"
+            element={
+              <ArchivePage
+                onDeleteNoteHandler={onDeleteNoteHandler}
+                onArchiveNoteHandler={onArchiveNoteHandler}
+              />
+            }
+          />
+          <Route
+            path="*"
+            element={<NotFoundPage />}
+          />
+        </Route>
+      </Routes>
     </DarkModeContext.Provider>
   );
 };
