@@ -5,16 +5,26 @@ import NotesList from '../components/NotesList/NotesList';
 import SearchBar from '../components/SearchBar/SearchBar';
 import useNoteActionModal from '../hooks/useNoteActionModal';
 import { getActiveNotes } from '../utils/network-data';
+import { useSearchParams } from 'react-router-dom';
 
 const HomePage = ({
   isSidebarOpen,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
-  keyword,
-  keywordChange,
 }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [modalValue, toggleModal] = useNoteActionModal();
   const [notes, setNotes] = useState([]);
+  const [keyword, setKeyword] = useState(() => searchParams.get('keyword') || '');
+
+  const onKeywordChangeHandler = (keyword) => {
+    setKeyword(keyword);
+    setSearchParams(keyword ? { keyword } : {});
+  };
+
+  const searchedNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(keyword.toLowerCase()),
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -43,10 +53,10 @@ const HomePage = ({
       </h2>
       <SearchBar
         keyword={keyword}
-        keywordChange={keywordChange}
+        keywordChange={onKeywordChangeHandler}
       />
       <NotesList
-        notes={notes}
+        notes={searchedNotes}
         isSidebarOpen={isSidebarOpen}
         toggleModal={toggleModal}
         keyword={keyword}
@@ -66,8 +76,6 @@ HomePage.propTypes = {
   isSidebarOpen: PropTypes.bool.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
-  keyword: PropTypes.string.isRequired,
-  keywordChange: PropTypes.func.isRequired,
 };
 
 export default HomePage;

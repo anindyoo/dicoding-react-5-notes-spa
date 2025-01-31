@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import HomePage from './pages/HomePage';
-import { Route, Routes, useSearchParams } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import NoteDetailPage from './pages/NoteDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AddNotePage from './pages/AddNotePage';
@@ -12,10 +12,10 @@ import { archiveNote, deleteNote, getUserLogged, putAccessToken, unarchiveNote }
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  const [searchParams, setSearchParams] = useSearchParams('');
+  // const [searchParams, setSearchParams] = useSearchParams('');
   const [authedUser, setAuthedUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
-  const keyword = searchParams.get('keyword') || '';
+  // const keyword = searchParams.get('keyword') || '';
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -39,7 +39,7 @@ const App = () => {
     }
   };
 
-  const changeSearchParams = (keyword) => setSearchParams({ keyword });
+  // const changeSearchParams = (keyword) => setSearchParams({ keyword });
 
   // const searchedNotes = notes.filter((note) => (
   //   note.title.toLowerCase().includes(keyword?.toLowerCase())
@@ -119,8 +119,8 @@ const App = () => {
                 isSidebarOpen={isSidebarOpen}
                 onDeleteNoteHandler={onDeleteNoteHandler}
                 onArchiveNoteHandler={onArchiveNoteHandler}
-                keyword={keyword}
-                keywordChange={changeSearchParams}
+                // keyword={keyword}
+                // keywordChange={changeSearchParams}
               />
             }
           />
@@ -143,8 +143,8 @@ const App = () => {
               <ArchivePage
                 onDeleteNoteHandler={onDeleteNoteHandler}
                 onArchiveNoteHandler={onArchiveNoteHandler}
-                keyword={keyword}
-                keywordChange={changeSearchParams}
+                // keyword={keyword}
+                // keywordChange={changeSearchParams}
               />
             }
           />
