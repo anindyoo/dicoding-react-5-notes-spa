@@ -12,10 +12,8 @@ import { archiveNote, deleteNote, getUserLogged, putAccessToken, unarchiveNote }
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-  // const [searchParams, setSearchParams] = useSearchParams('');
   const [authedUser, setAuthedUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
-  // const keyword = searchParams.get('keyword') || '';
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -38,12 +36,6 @@ const App = () => {
       console.log('error archiving note: ', error);
     }
   };
-
-  // const changeSearchParams = (keyword) => setSearchParams({ keyword });
-
-  // const searchedNotes = notes.filter((note) => (
-  //   note.title.toLowerCase().includes(keyword?.toLowerCase())
-  // ));
 
   const onLoginSuccess = async ({ accessToken }) => {
     putAccessToken(accessToken);
@@ -119,8 +111,6 @@ const App = () => {
                 isSidebarOpen={isSidebarOpen}
                 onDeleteNoteHandler={onDeleteNoteHandler}
                 onArchiveNoteHandler={onArchiveNoteHandler}
-                // keyword={keyword}
-                // keywordChange={changeSearchParams}
               />
             }
           />
@@ -143,8 +133,6 @@ const App = () => {
               <ArchivePage
                 onDeleteNoteHandler={onDeleteNoteHandler}
                 onArchiveNoteHandler={onArchiveNoteHandler}
-                // keyword={keyword}
-                // keywordChange={changeSearchParams}
               />
             }
           />
