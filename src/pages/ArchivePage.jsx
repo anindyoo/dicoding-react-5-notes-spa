@@ -5,15 +5,25 @@ import NotesList from '../components/NotesList/NotesList';
 import SearchBar from '../components/SearchBar/SearchBar';
 import useNoteActionModal from '../hooks/useNoteActionModal';
 import { getArchivedNotes } from '../utils/network-data';
+import { useSearchParams } from 'react-router-dom';
 
 const ArchivePage = ({
   onDeleteNoteHandler,
   onArchiveNoteHandler,
-  keyword,
-  keywordChange,
 }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const [modalValue, toggleModal] = useNoteActionModal();
   const [archivedNotes, setArchivedNotes] = useState([]);
+  const [keyword, setKeyword] = useState(() => searchParams.get('keyword') || '');
+
+  const onKeywordChangeHandler = (keyword) => {
+    setKeyword(keyword);
+    setSearchParams(keyword ? { keyword } : {});
+  };
+
+  const searchedArchivedNotes = archivedNotes.filter((note) =>
+    note.title.toLowerCase().includes(keyword.toLowerCase()),
+  );
 
   useEffect(() => {
     const fetchData = async () => {
@@ -42,10 +52,10 @@ const ArchivePage = ({
       </h2>
       <SearchBar
         keyword={keyword}
-        keywordChange={keywordChange}
+        keywordChange={onKeywordChangeHandler}
       />
       <NotesList
-        notes={archivedNotes}
+        notes={searchedArchivedNotes}
         toggleModal={toggleModal}
         keyword={keyword}
       />
@@ -63,8 +73,6 @@ const ArchivePage = ({
 ArchivePage.propTypes = {
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
-  keyword: PropTypes.string.isRequired,
-  keywordChange: PropTypes.func.isRequired,
 };
 
 export default ArchivePage;
