@@ -28,7 +28,8 @@ const MainLayout = ({
         md:rounded-tl-3xl
         overflow-y-scroll
         shadow-inner
-        bg-background">
+        bg-background dark:bg-backgroundDark"
+        >
           <Outlet />
         </main>
       </div>

@@ -24,9 +24,20 @@ export default {
         textBody: '#1d0100',
 
         dangerColor: '#E43A48',
-        dangerLighterColor: '#F3A5AC',
+        dangerLighterColor: '#eb575a',
+
+        backgroundDark: '#1d1516',
+        backgroundSecondaryDark: '#322a2b',
+        primaryColorDark: '#481d24',
+        primaryColor20Dark: '#5c3338',
+        secondaryColorDark: '#dac098',
+        secondaryColor20Dark: '#e3ceae',
+        accentColorDark: '#b6ac87',
+        accentColor20Dark: '#c6bea1',
+        accentColor30Dark: '#cec7ae',
       },
     },
   },
   plugins: [],
+  darkMode: 'selector',
 };

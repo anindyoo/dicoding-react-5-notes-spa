@@ -8,7 +8,7 @@ const EmptyNoteList = ({ keyword }) => {
     empty-note-list
     flex flex-row justify-center items-center gap-2
     mt-10
-    text-primaryColor"
+    text-primaryColor dark:text-white"
     >
       <ExclamationTriangleIcon className="w-12" />
       <p className="text-2xl">

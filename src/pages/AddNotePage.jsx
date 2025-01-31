@@ -19,7 +19,7 @@ const AddNotePage = () => {
     >
       <h2 className="
       home-page__title
-      text-2xl font-bold text-primaryColor"
+      text-2xl font-bold text-primaryColor dark:text-white"
       >
         Add Note
       </h2>

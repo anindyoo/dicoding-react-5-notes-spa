@@ -16,7 +16,7 @@ const SearchBar = ({
     border border-accentColor border-opacity-30
     shadow-md"
     >
-      <div className="search-bar__icon absolute left-2 pointer-events-none text-accentColor">
+      <div className="search-bar__icon absolute left-2 pointer-events-none text-accentColor dark:text-accentColor30Dark">
         <MagnifyingGlassIcon className="w-6" />
       </div>
       <input
@@ -29,7 +29,10 @@ const SearchBar = ({
         search-bar__input
         w-full
         p-2 pl-10
-        rounded-lg"
+        rounded-lg
+        dark:bg-backgroundSecondaryDark
+        dark:text-accentColor20Dark
+        dark:placeholder:text-accentColor20Dark"
       />
     </div>
   );

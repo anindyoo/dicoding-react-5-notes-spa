@@ -12,6 +12,7 @@ const Sidebar = ({ isSidebarOpen }) => {
     justify-between md:justify-normal
     w-full
     p-5 md:px-4 md:pt-2
+    dark:bg-backgroundSecondaryDark
     bg-white md:bg-auto
     transition-[width]
     ${isSidebarOpen

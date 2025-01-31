@@ -33,16 +33,24 @@ const Navigation = ({ isSidebarOpen }) => {
               overflow-hidden
               transition-all duration-200 ease-in-out
               ${location.pathname === data.path
-                ? 'bg-opacity-40 bg-accentColor'
-                : 'hover:bg-opacity-15 hover:bg-accentColor'}`}
+                ? 'bg-opacity-40 bg-accentColor dark:bg-accentColor20Dark'
+                : 'hover:bg-opacity-15 hover:bg-accentColor dark:hover:bg-opacity-50 dark:hover:bg-accentColor20Dark'}`}
             >
-              <div className="min-w-6 text-primaryColor transition-none">
+              <div className={`
+              min-w-6 text-primaryColor transition-none
+              ${location.pathname === data.path
+                ? 'dark:text-primaryColor'
+                : 'dark:text-accentColor30Dark'}`}
+              >
                 {data.icon}
               </div>
               <span className={`
               navigation__list-item__link-label
               transition-all duration-1000 ease-in-out
-              ${isSidebarOpen ? 'visible' : 'md:invisible md:w-0'}`}
+              ${isSidebarOpen ? 'visible' : 'md:invisible md:w-0'}
+              ${location.pathname === data.path
+                ? 'dark:text-primaryColor'
+                : 'dark:text-white'}`}
               >
                 {data.name}
               </span>

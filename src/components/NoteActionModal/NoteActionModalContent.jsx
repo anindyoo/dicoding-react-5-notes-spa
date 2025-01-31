@@ -18,7 +18,7 @@ const NoteActionModalContent = ({
       modal__header
       flex flex-row justify-between"
       >
-        <div className="flex flex-row items-center gap-2 text-primaryColor">
+        <div className="flex flex-row items-center gap-2 text-primaryColor dark:text-white">
           <ExclamationTriangleIcon className="w-6" />
           <h2 className="modal__title text-xl font-medium">
             {modalTitle}
@@ -29,10 +29,10 @@ const NoteActionModalContent = ({
           onClick={() => toggleModal.closeModal()}
           type="button"
         >
-          <XMarkIcon className="w-6 text-secondaryColor" />
+          <XMarkIcon className="w-6 text-secondaryColor dark:text-accentColor30Dark" />
         </button>
       </div>
-      <p className="modal__body font-light">
+      <p className="modal__body font-light dark:text-white">
         {modalBody(modalValue.noteTitle)}
       </p>
     </div>

@@ -42,6 +42,7 @@ const NoteActionModal = ({
       fixed top-0 left-0 z-40
       px-3 sm:px-0
       bg-opacity-40 bg-accentColor
+      dark:bg-opacity-60 dark:bg-backgroundDark
       w-screen h-screen"
     >
       <div
@@ -53,7 +54,7 @@ const NoteActionModal = ({
         px-4 py-5
         rounded-lg
         border border-accentColor border-opacity-30
-        bg-white"
+        bg-white dark:bg-backgroundSecondaryDark"
       >
         <NoteActionModalContent
           modalTitle={selectedModalType?.title}

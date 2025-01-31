@@ -57,8 +57,8 @@ const NoteActionModalButtons = ({
         rounded-md
         text-white
         ${modalValue.action === 'delete'
-          ? 'bg-dangerColor'
-          : 'bg-primaryColor'}
+          ? 'bg-dangerColor dark:bg-dangerLighterColor'
+          : 'bg-primaryColor dark:bg-primaryColor20Dark'}
         `}
       >
         {modalConfirm}
@@ -70,7 +70,9 @@ const NoteActionModalButtons = ({
         secondary-action-button
         px-3 py-2
         rounded-md
-        bg-secondaryColor"
+        bg-secondaryColor dark:bg-backgroundSecondaryDark
+        dark:border dark:border-accentColor20Dark
+        dark:text-white"
       >
         Cancel
       </button>
