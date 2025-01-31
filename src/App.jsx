@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import HomePage from './pages/HomePage';
 import { Route, Routes, useSearchParams } from 'react-router-dom';
-import { getAllNotes } from './utils/local-data';
 import NoteDetailPage from './pages/NoteDetailPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AddNotePage from './pages/AddNotePage';
@@ -9,10 +8,9 @@ import ArchivePage from './pages/ArchivePage';
 import MainLayout from './layouts/MainLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import { getUserLogged, putAccessToken } from './utils/network-data';
+import { archiveNote, deleteNote, getUserLogged, putAccessToken, unarchiveNote } from './utils/network-data';
 
 const App = () => {
-  const [notes, setNotes] = useState([]);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams('');
   const [authedUser, setAuthedUser] = useState(null);
@@ -21,39 +19,31 @@ const App = () => {
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
-  const onAddNoteHandler = ({ title, body }) => {
-    const newContact = {
-      id: (+new Date).toString(),
-      title,
-      body,
-      createdAt: new Date().toISOString(),
-      archived: false,
-    };
-
-    setNotes([
-      ...notes,
-      newContact,
-    ]);
+  const onDeleteNoteHandler = async (id) => {
+    try {
+      await deleteNote(id);
+    } catch (error) {
+      console.log('error deleting note: ', error);
+    }
   };
 
-  const onDeleteNoteHandler = (id) => {
-    const filteredNotes = notes.filter((note) => note.id !== id);
-    setNotes(filteredNotes);
-  };
-
-  const onArchiveNoteHandler = (id) => {
-    const updatedNotes = notes.map((note) => note.id === id
-      ? { ...note, archived: !note.archived }
-      : note,
-    );
-    setNotes(updatedNotes);
+  const onArchiveNoteHandler = async (id, isArchived) => {
+    try {
+      if (isArchived) {
+        await unarchiveNote(id);
+      } else {
+        await archiveNote(id);
+      }
+    } catch (error) {
+      console.log('error archiving note: ', error);
+    }
   };
 
   const changeSearchParams = (keyword) => setSearchParams({ keyword });
 
-  const searchedNotes = notes.filter((note) => (
-    note.title.toLowerCase().includes(keyword?.toLowerCase())
-  ));
+  // const searchedNotes = notes.filter((note) => (
+  //   note.title.toLowerCase().includes(keyword?.toLowerCase())
+  // ));
 
   const onLoginSuccess = async ({ accessToken }) => {
     putAccessToken(accessToken);
@@ -66,11 +56,6 @@ const App = () => {
     setAuthedUser(null);
     putAccessToken('');
   };
-
-  useEffect(() => {
-    const notes = getAllNotes();
-    setNotes(notes);
-  }, []);
 
   useEffect(() => {
     const fetchUserLogged = async () => {
@@ -131,7 +116,6 @@ const App = () => {
             index
             element={
               <HomePage
-                notes={searchedNotes}
                 isSidebarOpen={isSidebarOpen}
                 onDeleteNoteHandler={onDeleteNoteHandler}
                 onArchiveNoteHandler={onArchiveNoteHandler}
@@ -144,7 +128,6 @@ const App = () => {
             path='/notes/:id'
             element={
               <NoteDetailPage
-                notes={notes}
                 onDeleteNoteHandler={onDeleteNoteHandler}
                 onArchiveNoteHandler={onArchiveNoteHandler}
               />
@@ -152,13 +135,12 @@ const App = () => {
           />
           <Route
             path='/add'
-            element={<AddNotePage onAddNoteHandler={onAddNoteHandler} />}
+            element={<AddNotePage />}
           />
           <Route
             path='/archive'
             element={
               <ArchivePage
-                notes={searchedNotes}
                 onDeleteNoteHandler={onDeleteNoteHandler}
                 onArchiveNoteHandler={onArchiveNoteHandler}
                 keyword={keyword}

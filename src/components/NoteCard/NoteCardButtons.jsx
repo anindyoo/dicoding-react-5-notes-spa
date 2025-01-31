@@ -7,7 +7,7 @@ import NoteActionButton from '../NoteActionButton/NoteActionButton';
 const NoteCardButtons = ({
   id,
   noteTitle,
-  archived,
+  isArchived,
   toggleModal,
 }) => {
   return (
@@ -39,12 +39,14 @@ const NoteCardButtons = ({
         <NoteActionButton
           noteId={id}
           noteTitle={noteTitle}
-          action={archived ? 'unarchive' : 'archive'}
+          isArchived={isArchived}
+          action={isArchived ? 'unarchive' : 'archive'}
           toggleModal={toggleModal}
         />
         <NoteActionButton
           noteId={id}
           noteTitle={noteTitle}
+          isArchived={isArchived}
           action="delete"
           toggleModal={toggleModal}
         />
@@ -56,7 +58,7 @@ const NoteCardButtons = ({
 NoteCardButtons.propTypes = {
   id: PropTypes.string.isRequired,
   noteTitle: PropTypes.string.isRequired,
-  archived: PropTypes.bool.isRequired,
+  isArchived: PropTypes.bool.isRequired,
   toggleModal: PropTypes.objectOf(PropTypes.func).isRequired,
 };
 
