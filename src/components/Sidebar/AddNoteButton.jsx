@@ -14,6 +14,7 @@ const AddNoteButton = ({ isSidebarOpen }) => {
       p-2
       rounded-xl
       bg-primaryColor text-white
+      dark:bg-primaryColor20Dark
       transition-all duration-200 ease-in-out
       hover:brightness-90
       ${isSidebarOpen ? 'w-64' : 'w-max md:w-auto'}`}

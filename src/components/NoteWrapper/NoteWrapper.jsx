@@ -11,7 +11,9 @@ const NoteWrapper = ({ children }) => {
     px-6 py-8
     shadow-md
     bg-white bg-opacity-30
-    border border-accentColor border-opacity-30N"
+    dark:bg-backgroundSecondaryDark dark:bg-opacity-100
+    dark:text-white
+    border border-accentColor border-opacity-30"
     >
       {children}
     </div>

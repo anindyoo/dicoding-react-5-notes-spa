@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 import HomePage from './pages/HomePage';
 import { Route, Routes } from 'react-router-dom';
 import NoteDetailPage from './pages/NoteDetailPage';
@@ -9,11 +9,15 @@ import MainLayout from './layouts/MainLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import { archiveNote, deleteNote, getUserLogged, putAccessToken, unarchiveNote } from './utils/network-data';
+import AuthLayout from './layouts/AuthLayout';
+
+export const DarkModeContext = createContext(false);
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [authedUser, setAuthedUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -60,38 +64,58 @@ const App = () => {
     fetchUserLogged();
   }, []);
 
+  useEffect(() => {
+    const darkMode = localStorage.getItem('darkMode');
+
+    if (!darkMode) {
+      localStorage.setItem('darkMode', false);
+    } else {
+      document.body.classList.add('dark');
+    }
+
+    setIsDarkMode(darkMode);
+  }, []);
+
   if (initializing) {
-    return 'Initializing...';
+    return (
+      <section className="
+      w-screen h-screen
+      flex justify-center items-center
+      dark:bg-backgroundDark dark:text-white"
+      >
+        Initializing...
+      </section>
+    );
   }
 
   if (!authedUser) {
     return (
-      <div className="
-      notes-spa
-      flex flex-col items-center justify-center
-      w-screen h-screen"
-      >
+      <DarkModeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
         <Routes>
           <Route
-            path="/*"
-            element={<LoginPage loginSuccess={onLoginSuccess} />}
-          />
-          <Route
-            path="/register"
-            element={<RegisterPage />}
-          />
+            path="/"
+            element={<AuthLayout />}
+          >
+            <Route
+              index
+              element={<LoginPage loginSuccess={onLoginSuccess} />}
+            />
+            <Route
+              path="*"
+              element={<LoginPage loginSuccess={onLoginSuccess} />}
+            />
+            <Route
+              path="/register"
+              element={<RegisterPage />}
+            />
+          </Route>
         </Routes>
-      </div>
+      </DarkModeContext.Provider>
     );
   }
 
   return (
-    <div className="
-    notes-spa
-    center-element
-    flex flex-col
-    h-screen overflow-hidden"
-    >
+    <DarkModeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
       <Routes>
         <Route
           path="/"
@@ -115,7 +139,7 @@ const App = () => {
             }
           />
           <Route
-            path='/notes/:id'
+            path="/notes/:id"
             element={
               <NoteDetailPage
                 onDeleteNoteHandler={onDeleteNoteHandler}
@@ -124,11 +148,11 @@ const App = () => {
             }
           />
           <Route
-            path='/add'
+            path="/add"
             element={<AddNotePage />}
           />
           <Route
-            path='/archive'
+            path="/archive"
             element={
               <ArchivePage
                 onDeleteNoteHandler={onDeleteNoteHandler}
@@ -137,12 +161,12 @@ const App = () => {
             }
           />
           <Route
-            path='*'
+            path="*"
             element={<NotFoundPage />}
           />
         </Route>
       </Routes>
-    </div>
+    </DarkModeContext.Provider>
   );
 };
 

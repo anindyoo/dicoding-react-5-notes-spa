@@ -11,7 +11,13 @@ const MainLayout = ({
   authedUser,
 }) => {
   return (
-    <>
+    <div className="
+    notes-spa
+    center-element
+    flex flex-col
+    h-screen overflow-hidden
+    dark:bg-backgroundSecondaryDark"
+    >
       <Header
         toggleSidebar={toggleSidebar}
         logout={logout}
@@ -28,11 +34,12 @@ const MainLayout = ({
         md:rounded-tl-3xl
         overflow-y-scroll
         shadow-inner
-        bg-background">
+        bg-background dark:bg-backgroundDark"
+        >
           <Outlet />
         </main>
       </div>
-    </>
+    </div>
   );
 };
 

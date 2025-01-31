@@ -18,11 +18,14 @@ const RegisterPage = () => {
     <section className="
     register-page
     flex flex-col items-center gap-7
-    text-primaryColor"
+    w-screen px-5
+    mx-auto
+    text-primaryColor
+    dark:text-white"
     >
       <h1 className="
       register-page__title
-      text-2xl font-medium"
+      text-2xl font-medium text-center"
       >
         Register to Notes Single Page App
       </h1>
@@ -33,7 +36,7 @@ const RegisterPage = () => {
       >
         <Link
           to="/"
-          className="hover:underline"
+          className="hover:underline dark:text-secondaryColorDark"
         >
           Login here instead.
         </Link>

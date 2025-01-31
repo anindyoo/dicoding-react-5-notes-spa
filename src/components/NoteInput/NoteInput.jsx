@@ -24,7 +24,7 @@ const NoteInput = ({ onAddNoteHandler }) => {
         text-xl font-medium
         pointer-events-none"
         >
-          <div className="absolute text-accentColor">
+          <div className="absolute text-accentColor dark:text-accentColor30Dark">
             <p>Enter title...</p>
           </div>
         </div>
@@ -49,7 +49,7 @@ const NoteInput = ({ onAddNoteHandler }) => {
         px-1
         pointer-events-none"
         >
-          <div className="absolute text-accentColor">
+          <div className="absolute text-accentColor dark:text-accentColor30Dark">
             <p>Enter note...</p>
           </div>
         </div>
@@ -73,7 +73,7 @@ const NoteInput = ({ onAddNoteHandler }) => {
         p-2
         text-lg text-white
         rounded-lg
-        bg-primaryColor
+        bg-primaryColor dark:bg-primaryColor20Dark
         transition-all duration-200 ease-in-out
         hover:brightness-75"
         type="button"

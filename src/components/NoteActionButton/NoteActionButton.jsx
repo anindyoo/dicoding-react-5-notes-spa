@@ -36,6 +36,7 @@ const NoteActionButton = ({
       flex flex-none justify-center items-center
       w-8 h-8
       rounded-full border border-accentColor
+      dark:text-accentColor30Dark
       transition-all duration-200 ease-in-out
       hover:bg-accentColor hover:bg-opacity-20"
       type="button"

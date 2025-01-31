@@ -46,22 +46,22 @@ const LoginInput = ({ login }) => {
           onChange={field.onChange}
           className={`
           login-input__${field.id}-input
-          w-96
+          w-[calc(100vw-10vw)] sm:w-96
           p-3
           rounded-md
-          border border-tertiaryColor
-          bg-secondaryColor bg-opacity-20
-          placeholder:text-accentColor`}
+          border border-tertiaryColor dark:border-accentColor30Dark
+          bg-secondaryColor bg-opacity-20 dark:bg-backgroundSecondaryDark
+          placeholder:text-accentColor dark:placeholder:text-accentColor20Dark`}
         />
       ))}
       <button
         type="submit"
         className="
         login-input__submit-button
-        w-96
+        w-[calc(100vw-10vw)] sm:w-96
         p-3 mt-2
         rounded-md
-        bg-primaryColor hover:brightness-90
+        bg-primaryColor hover:brightness-90 dark:bg-primaryColor20Dark
         font-medium text-white"
       >
         Login

@@ -22,7 +22,8 @@ const NoteCard = ({
     border border-accentColor border-opacity-30
     shadow-md
     rounded-xl
-    bg-white"
+    bg-white dark:bg-backgroundSecondaryDark
+    dark:text-white"
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-col">
@@ -33,7 +34,7 @@ const NoteCard = ({
           >
             {parse(title)}
           </h3>
-          <p className="text-sm opacity-60">
+          <p className="text-sm opacity-60 dark:opacity-100 dark:text-accentColor20Dark">
             {showFormattedDate(createdAt)}
           </p>
         </div>

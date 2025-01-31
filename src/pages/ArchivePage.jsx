@@ -46,7 +46,7 @@ const ArchivePage = ({
     >
       <h2 className="
       archive-page__title
-      text-2xl font-bold text-primaryColor"
+      text-2xl font-bold text-primaryColor dark:text-white"
       >
         Archived Notes
       </h2>

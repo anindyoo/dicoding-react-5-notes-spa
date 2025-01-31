@@ -2,6 +2,7 @@ import { ArrowLeftStartOnRectangleIcon, Bars3Icon } from '@heroicons/react/24/ou
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
 
 const Header = ({
   toggleSidebar,
@@ -12,7 +13,8 @@ const Header = ({
     <header className="
     notes-spa__header
     flex flex-row gap-5 justify-between
-    px-4 md:pr-8 py-4"
+    px-5 md:pr-8 py-4
+    dark:text-accentColor30Dark dark:bg-backgroundSecondaryDark"
     >
       <div className="
       left-wrapper
@@ -30,7 +32,7 @@ const Header = ({
         <h1 className="
         notes-spa__title
         flex flex-col md:flex-row md:items-center md:gap-4
-        font-bold text-xl text-primaryColor"
+        font-bold text-xl text-primaryColor dark:text-white"
         >
           <Link to="/">
             <span className="hidden md:block">
@@ -55,14 +57,21 @@ const Header = ({
           </p>
         </h1>
       </div>
-      <button
-        type="button"
-        onClick={logout}
-        className="flex flex-row gap-1 items-center text-dangerColor"
+      <div className="
+      right-wrapper
+      flex flex-row gap-4
+      text-primaryColor dark:text-accentColor30Dark"
       >
-        <ArrowLeftStartOnRectangleIcon className="w-5" />
-        <span>Logout</span>
-      </button>
+        <DarkModeToggle />
+        <button
+          type="button"
+          onClick={logout}
+          className="flex flex-row gap-1 items-center text-dangerColor dark:text-dangerLighterColor"
+        >
+          <ArrowLeftStartOnRectangleIcon className="w-5" />
+          <span>Logout</span>
+        </button>
+      </div>
     </header>
   );
 };

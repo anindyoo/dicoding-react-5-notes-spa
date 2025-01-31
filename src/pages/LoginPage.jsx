@@ -17,11 +17,14 @@ const LoginPage = ({ loginSuccess }) => {
     <section className="
     login-page
     flex flex-col items-center gap-7
+    w-screen px-5
+    mx-auto
     text-primaryColor"
     >
       <h1 className="
       login-page__title
-      text-2xl font-medium"
+      text-2xl font-medium text-center
+      dark:text-white"
       >
         Login to Notes Single Page App
       </h1>
@@ -32,7 +35,7 @@ const LoginPage = ({ loginSuccess }) => {
       >
         <Link
           to="/register"
-          className="hover:underline"
+          className="hover:underline dark:text-secondaryColorDark"
         >
           Create new account here instead.
         </Link>

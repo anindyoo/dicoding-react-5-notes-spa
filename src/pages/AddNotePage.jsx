@@ -15,11 +15,12 @@ const AddNotePage = () => {
   return (
     <section className="
     add-note-page
-    flex flex-col gap-5"
+    flex flex-col gap-5
+    w-[calc(100vw-20vw)] md:w-auto"
     >
       <h2 className="
       home-page__title
-      text-2xl font-bold text-primaryColor"
+      text-2xl font-bold text-primaryColor dark:text-white"
       >
         Add Note
       </h2>

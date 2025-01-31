@@ -22,7 +22,8 @@ const NoteCardButtons = ({
         flex flex-1 justify-center items-center gap-1
         p-1
         rounded-lg
-        bg-secondaryColor
+        bg-secondaryColor dark:bg-secondaryColor20Dark
+        dark:text-primaryColor
         transition-all duration-200 ease-in-out
         hover:brightness-90"
       >
