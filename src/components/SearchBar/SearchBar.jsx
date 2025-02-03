@@ -1,11 +1,14 @@
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
+import { LocaleContext } from '../../App';
 
 const SearchBar = ({
   keyword,
   keywordChange,
 }) => {
+  const { locale } = useContext(LocaleContext);
+
   return (
     <div className="
     search-bar
@@ -22,7 +25,7 @@ const SearchBar = ({
       <input
         id="search-query"
         type="text"
-        placeholder="Search note title..."
+        placeholder={locale === 'en' ? 'Search note title...' : 'Cari judul catatan...'}
         value={keyword}
         onChange={(event) => keywordChange(event.target.value)}
         className="

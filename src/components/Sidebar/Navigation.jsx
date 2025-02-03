@@ -1,15 +1,29 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import { ArchiveBoxIcon, HomeIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
+import { LocaleContext } from '../../App';
 
 const navigationData = [
-  { id: 1, path: '/', name: 'Home', icon: <HomeIcon title="Home." /> },
-  { id: 2, path: '/archive', name: 'Archive', icon: <ArchiveBoxIcon title="Archive." /> },
+  {
+    id: 1,
+    path: '/',
+    name: 'Home',
+    nameID: 'Beranda',
+    icon: <HomeIcon title="Home." />,
+  },
+  {
+    id: 2,
+    path: '/archive',
+    name: 'Archive',
+    nameID: 'Arsip  ',
+    icon: <ArchiveBoxIcon title="Archive." />,
+  },
 ];
 
 const Navigation = ({ isSidebarOpen }) => {
   const location = useLocation();
+  const { locale } = useContext(LocaleContext);
 
   return (
     <nav className="navigation">
@@ -52,7 +66,7 @@ const Navigation = ({ isSidebarOpen }) => {
                 ? 'dark:text-primaryColor'
                 : 'dark:text-white'}`}
               >
-                {data.name}
+                {locale === 'en' ? data.name : data.nameID}
               </span>
             </NavLink>
           </li>

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
 import NotesList from '../components/NotesList/NotesList';
 import SearchBar from '../components/SearchBar/SearchBar';
@@ -8,8 +8,10 @@ import { getArchivedNotes } from '../utils/network-data';
 import { useSearchParams } from 'react-router-dom';
 import useLoading from '../hooks/useLoading';
 import LoadingIndicator from '../components/LoadingIndicator/LoadingIndicator';
+import { LocaleContext } from '../App';
 
 const ArchivePage = ({
+  isSidebarOpen,
   onDeleteNoteHandler,
   onArchiveNoteHandler,
 }) => {
@@ -22,6 +24,7 @@ const ArchivePage = ({
     startLoading,
     stopLoading,
   } = useLoading();
+  const { locale } = useContext(LocaleContext);
 
   const onKeywordChangeHandler = (keyword) => {
     setKeyword(keyword);
@@ -59,7 +62,7 @@ const ArchivePage = ({
       archive-page__title
       text-2xl font-bold text-primaryColor dark:text-white"
       >
-        Archived Notes
+        {locale === 'en' ? 'Archived Notes' : 'Catatan Terarsip'}
       </h2>
       <SearchBar
         keyword={keyword}
@@ -71,6 +74,7 @@ const ArchivePage = ({
           : (
             <NotesList
               notes={searchedArchivedNotes}
+              isSidebarOpen={isSidebarOpen}
               toggleModal={toggleModal}
               keyword={keyword}
             />
@@ -88,6 +92,7 @@ const ArchivePage = ({
 };
 
 ArchivePage.propTypes = {
+  isSidebarOpen: PropTypes.bool.isRequired,
   onDeleteNoteHandler: PropTypes.func.isRequired,
   onArchiveNoteHandler: PropTypes.func.isRequired,
 };

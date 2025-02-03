@@ -1,16 +1,19 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import useInput from '../../hooks/useInput';
+import { LocaleContext } from '../../App';
 
 const LoginInput = ({ login }) => {
   const [email, setEmail] = useInput('');
   const [password, setPassword] = useInput('');
+  const { locale } = useContext(LocaleContext);
 
   const fields = [
     {
       id: 'email',
       type: 'email',
       placeholder: 'Email',
+      placeholderID: 'Email',
       value: email,
       onChange: setEmail,
     },
@@ -18,6 +21,7 @@ const LoginInput = ({ login }) => {
       id: 'password',
       type: 'password',
       placeholder: 'Password',
+      placeholderID: 'Kata sandi',
       value: password,
       onChange: setPassword,
     },
@@ -41,7 +45,7 @@ const LoginInput = ({ login }) => {
           key={field.id}
           id={field.id}
           type={field.type}
-          placeholder={field.placeholder}
+          placeholder={locale === 'en' ? field.placeholder : field.placeholderID}
           value={field.value}
           onChange={field.onChange}
           className={`
@@ -64,7 +68,7 @@ const LoginInput = ({ login }) => {
         bg-primaryColor hover:brightness-90 dark:bg-primaryColor20Dark
         font-medium text-white"
       >
-        Login
+        {locale === 'en' ? 'Login' : 'Masuk'}
       </button>
     </form>
   );

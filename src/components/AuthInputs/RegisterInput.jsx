@@ -1,18 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import useInput from '../../hooks/useInput';
 import PropTypes from 'prop-types';
+import { LocaleContext } from '../../App';
 
 const RegisterInput = ({ register }) => {
   const [name, setName] = useInput('');
   const [email, setEmail] = useInput('');
   const [password, setPassword] = useInput('');
   const [passwordConfirm, setPasswordConfirm] = useInput('');
+  const { locale } = useContext(LocaleContext);
 
   const fields = [
     {
       id: 'name',
       type: 'text',
       placeholder: 'Name',
+      placeholderID: 'Nama',
       value: name,
       onChange: setName,
     },
@@ -20,6 +23,7 @@ const RegisterInput = ({ register }) => {
       id: 'email',
       type: 'email',
       placeholder: 'Email',
+      placeholderID: 'Email',
       value: email,
       onChange: setEmail,
     },
@@ -27,6 +31,7 @@ const RegisterInput = ({ register }) => {
       id: 'password',
       type: 'password',
       placeholder: 'Password',
+      placeholderID: 'Kata sandi',
       value: password,
       onChange: setPassword,
     },
@@ -34,6 +39,7 @@ const RegisterInput = ({ register }) => {
       id: 'password-confirm',
       type: 'password',
       placeholder: 'Confirm password',
+      placeholderID: 'Konfirmasi kata sandi',
       value: passwordConfirm,
       onChange: setPasswordConfirm,
     },
@@ -62,7 +68,7 @@ const RegisterInput = ({ register }) => {
           key={field.id}
           id={field.id}
           type={field.type}
-          placeholder={field.placeholder}
+          placeholder={locale === 'en' ? field.placeholder : field.placeholderID}
           value={field.value}
           onChange={field.onChange}
           className={`
@@ -85,7 +91,7 @@ const RegisterInput = ({ register }) => {
         bg-primaryColor hover:brightness-90 dark:bg-primaryColor20Dark
         font-medium text-white"
       >
-        Register
+        {locale === 'en' ? 'Register' : 'Daftar'}
       </button>
     </form>
   );

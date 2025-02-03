@@ -1,7 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import NoteActionButton from '../NoteActionButton/NoteActionButton';
 import { BoltIcon, BoltSlashIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
+import { LocaleContext } from '../../App';
+
+const noteIndicators = [
+  {
+    archived: false,
+    text: 'Active Note',
+    textID: 'Catatan Aktif',
+  },
+  {
+    archived: true,
+    text: 'Archived Note',
+    textID: 'Catatan Terarsip',
+  },
+];
 
 const NoteDetailPanel = ({
   toggleModal,
@@ -9,6 +23,9 @@ const NoteDetailPanel = ({
   noteTitle,
   archived,
 }) => {
+  const { locale } = useContext(LocaleContext);
+  const selectedIndicator = noteIndicators.find((item) => item.archived === archived);
+
   return (
     <div className="
     note-detail-panel
@@ -25,7 +42,7 @@ const NoteDetailPanel = ({
           }
         </span>
         <span>
-          {archived ? 'Archived Note' : 'Active Note'}
+          {locale === 'en' ? selectedIndicator.text : selectedIndicator.textID}
         </span>
       </p>
       <div className="

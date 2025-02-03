@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import RegisterInput from '../components/AuthInputs/RegisterInput';
 import { Link, useNavigate } from 'react-router-dom';
 import { register } from '../utils/network-data';
+import { LocaleContext } from '../App';
 
 const RegisterPage = () => {
   const navigate = useNavigate();
+  const { locale } = useContext(LocaleContext);
 
   const onRegisterHandler = async (user) => {
     const { error } = await register(user);
@@ -27,7 +29,7 @@ const RegisterPage = () => {
       register-page__title
       text-2xl font-medium text-center"
       >
-        Register to Notes Single Page App
+        {locale === 'en' ? 'Register to Notes Single Page App' : 'Mendaftar ke Notes Single Page App'}
       </h1>
       <RegisterInput register={onRegisterHandler} />
       <p className="
@@ -38,7 +40,7 @@ const RegisterPage = () => {
           to="/"
           className="hover:underline dark:text-secondaryColorDark"
         >
-          Login here instead.
+          {locale === 'en' ? 'Login here instead.' : 'Masuk akun di sini.'}
         </Link>
       </p>
     </section>

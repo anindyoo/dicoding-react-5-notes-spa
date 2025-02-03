@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { noteActionModalTypes } from '../../utils/definitions';
 import { getActiveNotes, getArchivedNotes, getNote } from '../../utils/network-data';
+import { LocaleContext } from '../../App';
 
 const NoteActionModalButtons = ({
   modalConfirm,
@@ -14,6 +15,7 @@ const NoteActionModalButtons = ({
 }) => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { locale } = useContext(LocaleContext);
 
   const selectedOnClickAction = async () => {
     const { noteId, action, isArchivedNote } = modalValue;
@@ -74,7 +76,7 @@ const NoteActionModalButtons = ({
         dark:border dark:border-accentColor20Dark
         dark:text-white"
       >
-        Cancel
+        {locale === 'en' ? 'Cancel' : 'Batalkan'}
       </button>
     </div>
   );
