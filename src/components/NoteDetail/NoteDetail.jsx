@@ -1,10 +1,13 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { showFormattedDate } from '../../utils';
 import NoteDetailPanel from './NoteDetailPanel';
 import parse from 'html-react-parser';
+import { LocaleContext } from '../../App';
 
 const NoteDetail = ({ note, toggleModal }) => {
+  const { locale } = useContext(LocaleContext);
+
   return note.title
     ? (
       <div className="note-detail">
@@ -33,7 +36,7 @@ const NoteDetail = ({ note, toggleModal }) => {
         </div>
       </div>
     )
-  : ('Loading...');
+  : (locale === 'en' ? 'Loading...' : 'Memuat...');
 };
 
 NoteDetail.propTypes = {

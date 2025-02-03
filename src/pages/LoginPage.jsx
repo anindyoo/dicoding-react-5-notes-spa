@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import LoginInput from '../components/AuthInputs/LoginInput';
 import { login } from '../utils/network-data';
 import PropTypes from 'prop-types';
+import { LocaleContext } from '../App';
 
 const LoginPage = ({ loginSuccess }) => {
+  const { locale } = useContext(LocaleContext);
+
   const onLoginHandler = async (user) => {
     const { error, data } = await login(user);
 
@@ -26,7 +29,7 @@ const LoginPage = ({ loginSuccess }) => {
       text-2xl font-medium text-center
       dark:text-white"
       >
-        Login to Notes Single Page App
+        {locale === 'en' ? 'Login to Notes Single Page App' : 'Masuk ke Notes Single Page App'}
       </h1>
       <LoginInput login={onLoginHandler} />
       <p className="
@@ -37,7 +40,7 @@ const LoginPage = ({ loginSuccess }) => {
           to="/register"
           className="hover:underline dark:text-secondaryColorDark"
         >
-          Create new account here instead.
+          {locale === 'en' ? 'Create new account here instead.' : 'Buat akun baru di sini.'}
         </Link>
       </p>
     </section>

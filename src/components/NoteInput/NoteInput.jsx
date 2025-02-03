@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import useDivInput from '../../hooks/useDivInput';
+import { LocaleContext } from '../../App';
 
 const NoteInput = ({ onAddNoteHandler }) => {
   const [title, handleTitleChange] = useDivInput('');
   const [body, handleBodyChange] = useDivInput('');
+  const { locale } = useContext(LocaleContext);
 
   const onNoteSubmitHandler = (event) => {
     event.preventDefault();
@@ -25,7 +27,7 @@ const NoteInput = ({ onAddNoteHandler }) => {
         pointer-events-none"
         >
           <div className="absolute text-accentColor dark:text-accentColor30Dark">
-            <p>Enter title...</p>
+            <p>{locale === 'en' ? 'Enter title...' : 'Masukkan judul...'}</p>
           </div>
         </div>
       )}
@@ -50,7 +52,7 @@ const NoteInput = ({ onAddNoteHandler }) => {
         pointer-events-none"
         >
           <div className="absolute text-accentColor dark:text-accentColor30Dark">
-            <p>Enter note...</p>
+            <p>{locale === 'en' ? 'Enter note...' : 'Masukkan catatan...'}</p>
           </div>
         </div>
       )}
@@ -79,7 +81,7 @@ const NoteInput = ({ onAddNoteHandler }) => {
         type="button"
         onClick={onNoteSubmitHandler}
       >
-        Add Note
+        {locale === 'en' ? 'Add Note' : 'Tambahkan Catatan'}
       </button>
     </>
   );

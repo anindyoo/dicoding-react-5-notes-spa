@@ -1,14 +1,18 @@
 import { ArrowLeftStartOnRectangleIcon, Bars3Icon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import DarkModeToggle from '../DarkModeToggle/DarkModeToggle';
+import LocaleToggle from '../LocaleToggle/LocaleToggle';
+import { LocaleContext } from '../../App';
 
 const Header = ({
   toggleSidebar,
   logout,
   authedUser,
 }) => {
+  const { locale } = useContext(LocaleContext);
+
   return (
     <header className="
     notes-spa__header
@@ -48,7 +52,7 @@ const Header = ({
           text-base font-normal
           truncate"
           >
-            Hello,
+            {locale === 'en' ? 'Hello' : 'Halo'},
             {' '}
             <span className="truncate">
               {authedUser.name}
@@ -59,17 +63,20 @@ const Header = ({
       </div>
       <div className="
       right-wrapper
-      flex flex-row gap-4
+      flex flex-row items-center gap-3
       text-primaryColor dark:text-accentColor30Dark"
       >
+        <LocaleToggle />
+        <div className="h-5 border-r" />
         <DarkModeToggle />
+        <div className="h-5 border-r" />
         <button
           type="button"
           onClick={logout}
           className="flex flex-row gap-1 items-center text-dangerColor dark:text-dangerLighterColor"
         >
           <ArrowLeftStartOnRectangleIcon className="w-5" />
-          <span>Logout</span>
+          <span>{locale === 'en' ? 'Logout' : 'Keluar'}</span>
         </button>
       </div>
     </header>

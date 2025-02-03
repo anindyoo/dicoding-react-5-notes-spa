@@ -29,7 +29,7 @@ const NoteActionModalContent = ({
           onClick={() => toggleModal.closeModal()}
           type="button"
         >
-          <XMarkIcon className="w-6 text-secondaryColor dark:text-accentColor30Dark" />
+          <XMarkIcon className="w-6 text-primaryColor dark:text-accentColor30Dark" />
         </button>
       </div>
       <p className="modal__body font-light dark:text-white">

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
 import NotesList from '../components/NotesList/NotesList';
 import SearchBar from '../components/SearchBar/SearchBar';
@@ -8,6 +8,7 @@ import { getActiveNotes } from '../utils/network-data';
 import { useSearchParams } from 'react-router-dom';
 import useLoading from '../hooks/useLoading';
 import LoadingIndicator from '../components/LoadingIndicator/LoadingIndicator';
+import { LocaleContext } from '../App';
 
 const HomePage = ({
   isSidebarOpen,
@@ -23,6 +24,7 @@ const HomePage = ({
     startLoading,
     stopLoading,
   } = useLoading();
+  const { locale } = useContext(LocaleContext);
 
   const onKeywordChangeHandler = (keyword) => {
     setKeyword(keyword);
@@ -60,7 +62,7 @@ const HomePage = ({
       home-page__title
       text-2xl font-bold text-primaryColor dark:text-white"
       >
-        Notes
+        {locale === 'en' ? 'Notes' : 'Catatan'}
       </h2>
       <SearchBar
         keyword={keyword}

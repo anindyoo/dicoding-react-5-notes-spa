@@ -1,8 +1,9 @@
 import { EyeIcon } from '@heroicons/react/24/outline';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import NoteActionButton from '../NoteActionButton/NoteActionButton';
+import { LocaleContext } from '../../App';
 
 const NoteCardButtons = ({
   id,
@@ -10,6 +11,8 @@ const NoteCardButtons = ({
   isArchived,
   toggleModal,
 }) => {
+  const { locale } = useContext(LocaleContext);
+
   return (
     <div className="
     note-card-buttons
@@ -30,7 +33,7 @@ const NoteCardButtons = ({
         <span className="w-6">
           <EyeIcon />
         </span>
-        <span>Read more</span>
+        <span>{locale === 'en' ? 'Read more' : 'Lebih lanjut'}</span>
       </Link>
       <div className="
       flex flex-row gap-2

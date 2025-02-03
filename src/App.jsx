@@ -8,10 +8,17 @@ import ArchivePage from './pages/ArchivePage';
 import MainLayout from './layouts/MainLayout';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import { archiveNote, deleteNote, getUserLogged, putAccessToken, unarchiveNote } from './utils/network-data';
+import {
+  archiveNote,
+  deleteNote,
+  getUserLogged,
+  putAccessToken,
+  unarchiveNote,
+} from './utils/network-data';
 import AuthLayout from './layouts/AuthLayout';
 
 export const DarkModeContext = createContext(false);
+export const LocaleContext = createContext('en');
 
 const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -19,6 +26,9 @@ const App = () => {
   const [initializing, setInitializing] = useState(true);
   const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('darkMode')
     ? JSON.parse(localStorage.getItem('darkMode')) : false,
+  );
+  const [locale, setLocale] = useState(() => localStorage.getItem('locale')
+    ? localStorage.getItem('locale') : 'en',
   );
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
@@ -75,6 +85,10 @@ const App = () => {
     localStorage.setItem('darkMode', isDarkMode);
   }, [isDarkMode]);
 
+  useEffect(() => {
+    localStorage.setItem('locale', locale);
+  }, [locale]);
+
   if (initializing) {
     return (
       <section className="
@@ -82,7 +96,7 @@ const App = () => {
       flex justify-center items-center
       dark:bg-backgroundDark dark:text-white"
       >
-        Initializing...
+        <p>{locale === 'en' ? 'Initializing...' : 'Memulai...'}</p>
       </section>
     );
   }
@@ -90,81 +104,86 @@ const App = () => {
   if (!authedUser) {
     return (
       <DarkModeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
-        <Routes>
-          <Route
-            path="/"
-            element={<AuthLayout />}
-          >
+        <LocaleContext.Provider value={{ locale, setLocale }}>
+          <Routes>
             <Route
-              index
-              element={<LoginPage loginSuccess={onLoginSuccess} />}
-            />
-            <Route
-              path="*"
-              element={<LoginPage loginSuccess={onLoginSuccess} />}
-            />
-            <Route
-              path="/register"
-              element={<RegisterPage />}
-            />
-          </Route>
-        </Routes>
+              path="/"
+              element={<AuthLayout />}
+            >
+              <Route
+                index
+                element={<LoginPage loginSuccess={onLoginSuccess} />}
+              />
+              <Route
+                path="*"
+                element={<LoginPage loginSuccess={onLoginSuccess} />}
+              />
+              <Route
+                path="/register"
+                element={<RegisterPage />}
+              />
+            </Route>
+          </Routes>
+        </LocaleContext.Provider>
       </DarkModeContext.Provider>
     );
   }
 
   return (
     <DarkModeContext.Provider value={{ isDarkMode, setIsDarkMode }}>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <MainLayout
-              isSidebarOpen={isSidebarOpen}
-              toggleSidebar={toggleSidebar}
-              logout={onLogout}
-              authedUser={authedUser}
-            />
-          }
-        >
+      <LocaleContext.Provider value={{ locale, setLocale }}>
+        <Routes>
           <Route
-            index
+            path="/"
             element={
-              <HomePage
+              <MainLayout
                 isSidebarOpen={isSidebarOpen}
-                onDeleteNoteHandler={onDeleteNoteHandler}
-                onArchiveNoteHandler={onArchiveNoteHandler}
+                toggleSidebar={toggleSidebar}
+                logout={onLogout}
+                authedUser={authedUser}
               />
             }
-          />
-          <Route
-            path="/notes/:id"
-            element={
-              <NoteDetailPage
-                onDeleteNoteHandler={onDeleteNoteHandler}
-                onArchiveNoteHandler={onArchiveNoteHandler}
-              />
-            }
-          />
-          <Route
-            path="/add"
-            element={<AddNotePage />}
-          />
-          <Route
-            path="/archive"
-            element={
-              <ArchivePage
-                onDeleteNoteHandler={onDeleteNoteHandler}
-                onArchiveNoteHandler={onArchiveNoteHandler}
-              />
-            }
-          />
-          <Route
-            path="*"
-            element={<NotFoundPage />}
-          />
-        </Route>
-      </Routes>
+          >
+            <Route
+              index
+              element={
+                <HomePage
+                  isSidebarOpen={isSidebarOpen}
+                  onDeleteNoteHandler={onDeleteNoteHandler}
+                  onArchiveNoteHandler={onArchiveNoteHandler}
+                />
+              }
+            />
+            <Route
+              path="/notes/:id"
+              element={
+                <NoteDetailPage
+                  onDeleteNoteHandler={onDeleteNoteHandler}
+                  onArchiveNoteHandler={onArchiveNoteHandler}
+                />
+              }
+            />
+            <Route
+              path="/add"
+              element={<AddNotePage />}
+            />
+            <Route
+              path="/archive"
+              element={
+                <ArchivePage
+                  isSidebarOpen={isSidebarOpen}
+                  onDeleteNoteHandler={onDeleteNoteHandler}
+                  onArchiveNoteHandler={onArchiveNoteHandler}
+                />
+              }
+            />
+            <Route
+              path="*"
+              element={<NotFoundPage />}
+            />
+          </Route>
+        </Routes>
+      </LocaleContext.Provider>
     </DarkModeContext.Provider>
   );
 };

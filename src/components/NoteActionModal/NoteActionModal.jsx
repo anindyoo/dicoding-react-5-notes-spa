@@ -1,27 +1,37 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import NoteActionModalContent from './NoteActionModalContent';
 import NoteActionModalButtons from './NoteActionModalButtons';
 import PropTypes from 'prop-types';
 import { noteActionModalTypes } from '../../utils/definitions';
+import { LocaleContext } from '../../App';
 
 const modalTypesData = [
   {
     id: 'delete',
     title: 'Delete Note',
+    titleID: 'Hapus Catatan',
     body: (noteTitle) => `Proceed to delete note: "${noteTitle}"?`,
+    bodyID: (noteTitle) => `Lanjutkan menghapus catatan: "${noteTitle}"?`,
     confirm: 'Delete Note',
+    confirmID: 'Hapus Catatan',
   },
   {
     id: 'archive',
     title: 'Archive Note',
+    titleID: 'Arsip Catatan',
     body: (noteTitle) => `Proceed to archive note: "${noteTitle}"?`,
+    bodyID: (noteTitle) => `Lanjutkan mengarsip catatan: "${noteTitle}"?`,
     confirm: 'Archive Note',
+    confirmID: 'Arsip Catatan',
   },
   {
     id: 'unarchive',
     title: 'Unarchive Note',
+    titleID: 'Batal Arsip Catatan',
     body: (noteTitle) => `Proceed to unarchive note: "${noteTitle}"?`,
+    bodyID: (noteTitle) => `Batalkan mengarsip catatan: "${noteTitle}"?`,
     confirm: 'Unarchive Note',
+    confirmID: 'Batal Arsip Catatan',
   },
 ];
 
@@ -32,6 +42,7 @@ const NoteActionModal = ({
   onArchiveNoteHandler,
   updateNotes,
 }) => {
+  const { locale } = useContext(LocaleContext);
   const selectedModalType = modalTypesData.find((type) => type.id === modalValue.action);
 
   return selectedModalType && (
@@ -57,13 +68,13 @@ const NoteActionModal = ({
         bg-white dark:bg-backgroundSecondaryDark"
       >
         <NoteActionModalContent
-          modalTitle={selectedModalType?.title}
-          modalBody={selectedModalType?.body}
+          modalTitle={locale === 'en' ? selectedModalType?.title : selectedModalType?.titleID}
+          modalBody={locale === 'en' ? selectedModalType?.body : selectedModalType?.bodyID}
           modalValue={modalValue}
           toggleModal={toggleModal}
         />
         <NoteActionModalButtons
-          modalConfirm={selectedModalType?.confirm}
+          modalConfirm={locale === 'en' ? selectedModalType?.confirm : selectedModalType?.confirmID}
           modalValue={modalValue}
           toggleModal={toggleModal}
           onDeleteNoteHandler={onDeleteNoteHandler}

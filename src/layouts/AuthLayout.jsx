@@ -1,6 +1,7 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 import DarkModeToggle from '../components/DarkModeToggle/DarkModeToggle';
+import LocaleToggle from '../components/LocaleToggle/LocaleToggle';
 
 const AuthLayout = () => {
   return (
@@ -13,7 +14,14 @@ const AuthLayout = () => {
     >
       <Outlet />
       <div className="h-6" />
-      <DarkModeToggle />
+      <div className="
+      auth__option-buttons
+      flex flex-row items-center gap-7"
+      >
+        <LocaleToggle />
+        <div className="h-7 border-l" />
+        <DarkModeToggle />
+      </div>
     </div>
   );
 };
