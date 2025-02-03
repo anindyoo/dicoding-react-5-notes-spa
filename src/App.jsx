@@ -17,7 +17,9 @@ const App = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [authedUser, setAuthedUser] = useState(null);
   const [initializing, setInitializing] = useState(true);
-  const [isDarkMode, setIsDarkMode] = useState(false);
+  const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('darkMode')
+    ? JSON.parse(localStorage.getItem('darkMode')) : false,
+  );
 
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
@@ -25,7 +27,7 @@ const App = () => {
     try {
       await deleteNote(id);
     } catch (error) {
-      console.log('error deleting note: ', error);
+      console.error('error deleting note: ', error);
     }
   };
 
@@ -37,7 +39,7 @@ const App = () => {
         await archiveNote(id);
       }
     } catch (error) {
-      console.log('error archiving note: ', error);
+      console.error('error archiving note: ', error);
     }
   };
 
@@ -65,16 +67,13 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    const darkMode = localStorage.getItem('darkMode');
-
-    if (!darkMode) {
-      localStorage.setItem('darkMode', false);
-    } else {
+    if (isDarkMode) {
       document.body.classList.add('dark');
+    } else {
+      document.body.classList.remove('dark');
     }
-
-    setIsDarkMode(darkMode);
-  }, []);
+    localStorage.setItem('darkMode', isDarkMode);
+  }, [isDarkMode]);
 
   if (initializing) {
     return (

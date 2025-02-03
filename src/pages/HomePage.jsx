@@ -6,6 +6,8 @@ import SearchBar from '../components/SearchBar/SearchBar';
 import useNoteActionModal from '../hooks/useNoteActionModal';
 import { getActiveNotes } from '../utils/network-data';
 import { useSearchParams } from 'react-router-dom';
+import useLoading from '../hooks/useLoading';
+import LoadingIndicator from '../components/LoadingIndicator/LoadingIndicator';
 
 const HomePage = ({
   isSidebarOpen,
@@ -16,6 +18,11 @@ const HomePage = ({
   const [modalValue, toggleModal] = useNoteActionModal();
   const [notes, setNotes] = useState([]);
   const [keyword, setKeyword] = useState(() => searchParams.get('keyword') || '');
+  const {
+    isLoading,
+    startLoading,
+    stopLoading,
+  } = useLoading();
 
   const onKeywordChangeHandler = (keyword) => {
     setKeyword(keyword);
@@ -29,10 +36,14 @@ const HomePage = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
+        startLoading();
         const { data } = await getActiveNotes();
         setNotes(data);
       } catch (error) {
         console.error('error fetching notes: ', error);
+        stopLoading();
+      } finally {
+        stopLoading();
       }
     };
 
@@ -55,12 +66,18 @@ const HomePage = ({
         keyword={keyword}
         keywordChange={onKeywordChangeHandler}
       />
-      <NotesList
-        notes={searchedNotes}
-        isSidebarOpen={isSidebarOpen}
-        toggleModal={toggleModal}
-        keyword={keyword}
-      />
+      {
+        isLoading
+          ? <LoadingIndicator />
+          : (
+            <NotesList
+              notes={searchedNotes}
+              isSidebarOpen={isSidebarOpen}
+              toggleModal={toggleModal}
+              keyword={keyword}
+            />
+          )
+      }
       <NoteActionModal
         modalValue={modalValue}
         toggleModal={toggleModal}
