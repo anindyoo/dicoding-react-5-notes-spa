@@ -27,7 +27,7 @@ const App = () => {
     try {
       await deleteNote(id);
     } catch (error) {
-      console.log('error deleting note: ', error);
+      console.error('error deleting note: ', error);
     }
   };
 
@@ -39,7 +39,7 @@ const App = () => {
         await archiveNote(id);
       }
     } catch (error) {
-      console.log('error archiving note: ', error);
+      console.error('error archiving note: ', error);
     }
   };
 

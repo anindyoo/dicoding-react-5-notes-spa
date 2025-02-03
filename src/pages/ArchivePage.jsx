@@ -6,6 +6,8 @@ import SearchBar from '../components/SearchBar/SearchBar';
 import useNoteActionModal from '../hooks/useNoteActionModal';
 import { getArchivedNotes } from '../utils/network-data';
 import { useSearchParams } from 'react-router-dom';
+import useLoading from '../hooks/useLoading';
+import LoadingIndicator from '../components/LoadingIndicator/LoadingIndicator';
 
 const ArchivePage = ({
   onDeleteNoteHandler,
@@ -15,6 +17,11 @@ const ArchivePage = ({
   const [modalValue, toggleModal] = useNoteActionModal();
   const [archivedNotes, setArchivedNotes] = useState([]);
   const [keyword, setKeyword] = useState(() => searchParams.get('keyword') || '');
+  const {
+    isLoading,
+    startLoading,
+    stopLoading,
+  } = useLoading();
 
   const onKeywordChangeHandler = (keyword) => {
     setKeyword(keyword);
@@ -28,10 +35,14 @@ const ArchivePage = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
+        startLoading();
         const { data } = await getArchivedNotes();
         setArchivedNotes(data);
       } catch (error) {
         console.error('error fetching notes: ', error);
+        stopLoading();
+      } finally {
+        stopLoading();
       }
     };
 
@@ -54,11 +65,17 @@ const ArchivePage = ({
         keyword={keyword}
         keywordChange={onKeywordChangeHandler}
       />
-      <NotesList
-        notes={searchedArchivedNotes}
-        toggleModal={toggleModal}
-        keyword={keyword}
-      />
+      {
+        isLoading
+          ? <LoadingIndicator />
+          : (
+            <NotesList
+              notes={searchedArchivedNotes}
+              toggleModal={toggleModal}
+              keyword={keyword}
+            />
+          )
+      }
       <NoteActionModal
         modalValue={modalValue}
         toggleModal={toggleModal}

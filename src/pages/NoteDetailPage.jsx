@@ -7,6 +7,8 @@ import PropTypes from 'prop-types';
 import NoteActionModal from '../components/NoteActionModal/NoteActionModal';
 import useNoteActionModal from '../hooks/useNoteActionModal';
 import { getNote } from '../utils/network-data';
+import useLoading from '../hooks/useLoading';
+import LoadingIndicator from '../components/LoadingIndicator/LoadingIndicator';
 
 const NoteDetailPage = ({
   onDeleteNoteHandler,
@@ -15,14 +17,23 @@ const NoteDetailPage = ({
   const { id } = useParams();
   const [note, setNote] = useState({});
   const [modalValue, toggleModal] = useNoteActionModal();
+  const {
+    isLoading,
+    startLoading,
+    stopLoading,
+  } = useLoading();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
+        startLoading();
         const { data } = await getNote(id);
         setNote(data);
       } catch (error) {
         console.error('error fetching notes: ', error);
+        stopLoading();
+      } finally {
+        stopLoading();
       }
     };
 
@@ -33,10 +44,16 @@ const NoteDetailPage = ({
     ? (
       <section className="note-detail-page">
         <NoteWrapper>
-          <NoteDetail
-            note={note}
-            toggleModal={toggleModal}
-          />
+          {
+            isLoading
+              ? <LoadingIndicator />
+              : (
+                <NoteDetail
+                  note={note}
+                  toggleModal={toggleModal}
+                />
+              )
+          }
         </NoteWrapper>
         <NoteActionModal
           modalValue={modalValue}
